@@ -1,0 +1,117 @@
+// Cria um uma collection com todos os inputs que o usuário tem acesso
+let inputsArray = document.getElementsByClassName('valor-input');
+
+// Valores mkt médio
+let mktVisiToLeads = 0.2;
+let mktLeadsToOpor = 0.1;
+let mktOporToClie = 0.25;
+
+// Adiciona um evento onkeyup em todos os inputs da nossa collection
+for (input of inputsArray) {
+    input.onkeyup = () => {
+        calc();
+        console.log("oi");
+    }
+}
+
+// Função principal, executa todos nossos cálculos
+function calc() {
+    calcReceita(returnCollectionValue('ticketmedio'), returnCollectionValue('clientes'));
+    calcLucro(returnCollectionValue("receita"), returnCollectionValue("despesa"));
+    calcCPL(returnCollectionValue('campanha'), returnCollectionValue('leads'));
+    calcCAC(returnCollectionValue('campanha'), returnCollectionValue('clientes'));
+    calcClientes(returnCollectionValue('oportunidades'), returnCollectionValue('oporToClie') === null ? mktOporToClie : returnCollectionValue('oporToClie'));
+    calcLeads(returnCollectionValue('visitantes'), returnCollectionValue('visiToLeads') === null ? mktVisiToLeads : returnCollectionValue('visiToLeads'));
+    calcOpor(returnCollectionValue('leads'), returnCollectionValue('leadsToOpor') === null ? mktLeadsToOpor : returnCollectionValue('leadsToOpor'));
+}
+
+// Calcula Receita
+function calcReceita(ticketMedio, cliente) {
+    var label = document.getElementById("labelReceita");
+    label.classList.add("active");
+    let receitaResult = (Number(ticketMedio) * Number(cliente));
+    returnResultField('receitaResult').value = ternarioNaN(receitaResult);
+}
+
+// Calcula Lucro
+function calcLucro(valorReceita, valorDespesa) {
+    var label = document.getElementById("labelLucro");
+    label.classList.add("active");
+    let lucroResult = (Number(valorReceita) - Number(valorDespesa));
+    returnResultField('lucroResult').value = ternarioNaN(lucroResult);
+}
+
+// Calcula CPL
+function calcCPL(valorCampanha, lead) {
+    var label = document.getElementById("labelCpl");
+    label.classList.add("active");
+    let cplResult = (Number(valorCampanha) / Number(lead) !== null ? Number(lead) : valorCampanha);
+    returnResultField('cplResult').value = ternarioInfinity(ternarioNaN(cplResult));
+}
+
+// Calcula CAC
+function calcCAC(valorCampanha, cliente) {
+    var label = document.getElementById("labelCac");
+    label.classList.add("active");
+    let dividendo = (Number(cliente) !== null) ? Number(cliente) : 1;
+    let cacResult = (Number(valorCampanha) / dividendo);
+    returnResultField('cacResult').value = ternarioInfinity(ternarioNaN(cacResult));
+}
+
+// Calcula Clientes
+function calcClientes(oportunidades, porcentagem) {
+    var label = document.getElementById("labelClientes");
+    label.classList.add("active");
+    if(oportunidades === null) {
+        if(returnCollectionValue('leads') === null){
+            let leads = calcLeads(returnCollectionValue('visitantes'), returnCollectionValue('visiToLeads') === null ? mktVisiToLeads : returnCollectionValue('visiToLeads'));
+            let opor = calcOpor(leads, returnCollectionValue('leadsToOpor') === null ? mktLeadsToOpor : returnCollectionValue('leadsToOpor'));
+            let clientes = opor*porcentagem;
+            returnResultField('clientesResult').value = ternarioNaN(clientes);
+        }else {
+            let opor = calcOpor(returnCollectionValue('leads'), returnCollectionValue('leadsToOpor') === null ? mktLeadsToOpor : returnCollectionValue('leadsToOpor'));
+            let clientes = opor*porcentagem;
+            returnResultField('clientesResult').value = ternarioNaN(clientes);
+        }
+    }else {
+        let clientes = oportunidades*porcentagem;
+        returnResultField('clientesResult').value = ternarioNaN(clientes);
+    }
+}
+
+// Calcula Leads
+function calcLeads(visitantes, porcentagem) {
+    var label = document.getElementById("labelLeads");
+    label.classList.add("active");
+    let leads = visitantes*porcentagem;
+    returnResultField('leadsResult').value = ternarioNaN(leads);
+}
+
+// Calcula Oportunidades
+function calcOpor(leads, porcentagem) {
+    var label = document.getElementById("labelOpor");
+    label.classList.add("active");
+    if(leads === null) {
+        let leadsCalc = calcLeads(returnCollectionValue('visitantes'), returnCollectionValue('visiToLeads') === null ? mktVisiToLeads : returnCollectionValue('visiToLeads'));
+        let opor = leadsCalc*porcentagem;
+        returnResultField('oportunidadesResult').value = ternarioNaN(opor);
+    }else{
+        let opor = leads*porcentagem;
+        returnResultField('oportunidadesResult').value = ternarioNaN(opor);
+    }
+}
+
+
+// Funções utilitárias
+function ternarioNaN(resultado) {
+    return !isNaN(resultado) ? resultado : "";
+}
+function ternarioInfinity(resultado) {
+    return isFinite(resultado) ? resultado : 0;
+}
+function returnCollectionValue(id) {
+    return inputsArray.namedItem(id).value;
+}
+function returnResultField(id) {
+    return document.getElementById(id);
+}
