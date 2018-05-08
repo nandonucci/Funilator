@@ -5,9 +5,11 @@
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-118085354-1"></script>
   <script>
       window.dataLayer = window.dataLayer || [];
+
       function gtag() {
           dataLayer.push(arguments);
       }
+
       gtag('js', new Date());
       gtag('config', 'UA-118085354-1');
   </script>
@@ -50,9 +52,6 @@
 TOPO
 ===========================================-->
 <header id="home">
-  <nav id="theMenu" class="menu">
-  </nav>
-
   <div class="header-background section">
     <div id="v-card-holder">
       <div class="container">
@@ -86,140 +85,143 @@ TOPO
                           / <b><span style="background-color: #34ba3a; color:#000;">&nbsp;25%&nbsp;</span></b>
                           / <b><span style="background-color: #f8a503; color:#000;">&nbsp;0,5%&nbsp;</span></b>
                         </h4>
-                          <div class="hidden" id="divMedias">
-                            <h5>informe abaixo p/ alterar <span><a href="pages/easteregg.html"
-                                                                   style="color: #000000">?</a></span></h5>
+                        <div class="hidden" id="divMedias">
+                          <h5>informe abaixo p/ alterar <span><a href="pages/easteregg.html"
+                                                                 style="color: #000000">?</a></span></h5>
+                          <br><h6 id="alertMsg"></h6>
 
-                        <!--Visitantes to Leads-->
-                        <div class="input-field input-field-red">
-                          <input id="visiToLeads" type="number" class="validate"
-                                 name="visiToLeads" required>
-                          <label for="visiToLeads">Visitantes p/ Leads</label>
+                          <!--Visitantes to Leads-->
+                          <div class="input-field input-field-red">
+                            <input id="visiToLeads" type="number" class="validate"
+                                   name="visiToLeads">
+                            <label for="visiToLeads">Visitantes p/ Leads</label>
+                          </div>
+                          <!--Leads to Oportunidades-->
+                          <div class="input-field input-field-blue">
+                            <input id="leadsToOpor" type="number" class="validate"
+                                   name="leadsToOpor">
+                            <label for="leadsToOpor">Leads p/ Oport.</label>
+                          </div>
+                          <!--Oportunidade to Clientes-->
+                          <div class="input-field input-field-green">
+                            <input id="oporToClie" type="number" class="validate"
+                                   name="oporToClie">
+                            <label for="oporToClie">Oport. p/ Clientes</label>
+                          </div>
+                          <!--Taxa de Conversao-->
+                          <div class="input-field input-field-yellow">
+                            <input id="taxaConversao" type="number" class="validate"
+                                   name="taxaConversao">
+                            <label for="taxaConversao">Taxa de Conversão</label>
+                          </div>
                         </div>
-                        <!--Leads to Oportunidades-->
-                        <div class="input-field input-field-blue">
-                          <input id="leadsToOpor" type="number" class="validate"
-                                 name="leadsToOpor" required>
-                          <label for="leadsToOpor">Leads p/ Oport.</label>
-                        </div>
-                        <!--Oportunidade to Clientes-->
-                        <div class="input-field input-field-green">
-                          <input id="oporToClie" type="number" class="validate"
-                                 name="oporToClie" required>
-                          <label for="oporToClie">Oport. p/ Clientes</label>
-                        </div>
-                        <!--Taxa de Conversao-->
-                        <div class="input-field input-field-yellow">
-                          <input id="taxaConversao" type="number" class="validate"
-                                 name="taxaConversao" required>
-                          <label for="taxaConversao">Taxa de Conversão</label>
-                        </div>
+                        <h4>//calcular</h4>
+                        <form id="contact-form" name="c-form" class="form-block">
+                          <!--CLIENTES-->
+                          <div class="input-field">
+                            <input id="clientes" type="number" class="validate valor-input"
+                                   name="clientes">
+                            <label for="clientes">Clientes</label>
+                          </div>
+                          <!--OPORTUNIDADE-->
+                          <div class="input-field">
+                            <input id="oportunidades" type="number" class="validate valor-input"
+                                   name="oportunidades">
+                            <label for="oportunidades">Oportunidades</label>
+                          </div>
+                          <!--LEADS-->
+                          <div class="input-field">
+                            <input id="leads" type="number" class="validate valor-input"
+                                   name="leads">
+                            <label for="leads">Leads</label>
+                          </div>
+                          <!--VISITANTES-->
+                          <div class="input-field">
+                            <input id="visitantes" type="number" class="validate valor-input"
+                                   name="visitantes">
+                            <label for="visitantes">Visitantes</label>
+                          </div>
+                          <!-- TICKET MÉDIO -->
+                          <div class="input-field">
+                            <input id="ticketmedio" type="number" class="validate valor-input"
+                                   name="ticketmedio">
+                            <label for="ticketmedio">Ticket Médio</label>
+                          </div><!--CAC-->
+                          <div class="input-field">
+                            <input id="cac" type="number" class="validate valor-input" name="cac"
+                            >
+                            <label for="cac">CAC</label>
+                          </div>
+                          <!--CPL-->
+                          <div class="input-field">
+                            <input id="cpl" type="number" class="validate valor-input" name="cpl"
+                            >
+                            <label for="cpl">CPL</label>
+                          </div>
+                          <!--RECEITA-->
+                          <div class="input-field">
+                            <input id="receita" type="number" class="validate valor-input"
+                                   name="receita">
+                            <label for="receita">Receita</label>
+                          </div>
+                          <!--CAMPANHA-->
+                          <div class="input-field">
+                            <input id="campanha" type="number" class="validate valor-input"
+                                   name="campanha">
+                            <label for="campanha">Despesa/Campanha</label>
+                          </div>
+                          <!--LUCRO-->
+                          <div class="input-field">
+                            <input id="lucro" type="number" class="validate valor-input" name="lucro"
+                            >
+                            <label for="lucro">Lucro %</label>
+                          </div>
+                          <!--PREJUIZO-->
+                          <div class="input-field">
+                            <input id="prejuizo" type="number" class="validate valor-input"
+                                   name="prejuizo">
+                            <label for="prejuizo">Prejuizo %</label>
+                          </div>
+
+
+                          <!-- BOTÃO LIMPAR -->
+
+                          <input type="reset" value="limpar">
+
+
+                        </form>
                       </div>
-                      <h4>//calcular</h4>
-                      <form id="contact-form" name="c-form" class="form-block">
-                        <!--CLIENTES-->
-                        <div class="input-field">
-                          <input id="clientes" type="number" class="validate valor-input"
-                                 name="clientes">
-                          <label for="clientes">Clientes</label>
-                        </div>
-                        <!--OPORTUNIDADE-->
-                        <div class="input-field">
-                          <input id="oportunidades" type="number" class="validate valor-input"
-                                 name="oportunidades" required>
-                          <label for="oportunidades">Oportunidades</label>
-                        </div>
-                        <!--LEADS-->
-                        <div class="input-field">
-                          <input id="leads" type="number" class="validate valor-input"
-                                 name="leads" required>
-                          <label for="leads">Leads</label>
-                        </div>
-                        <!--VISITANTES-->
-                        <div class="input-field">
-                          <input id="visitantes" type="number" class="validate valor-input"
-                                 name="visitantes" required>
-                          <label for="visitantes">Visitantes</label>
-                        </div>
-                        <!-- TICKET MÉDIO -->
-                        <div class="input-field">
-                          <input id="ticketmedio" type="number" class="validate valor-input"
-                                 name="ticketmedio" required>
-                          <label for="ticketmedio">Ticket Médio</label>
-                        </div><!--CAC-->
-                        <div class="input-field">
-                          <input id="cac" type="number" class="validate valor-input" name="cac"
-                                 required>
-                          <label for="cac">CAC</label>
-                        </div>
-                        <!--CPL-->
-                        <div class="input-field">
-                          <input id="cpl" type="number" class="validate valor-input" name="cpl"
-                                 required>
-                          <label for="cpl">CPL</label>
-                        </div>
-                        <!--RECEITA-->
-                        <div class="input-field">
-                          <input id="receita" type="number" class="validate valor-input"
-                                 name="receita" required>
-                          <label for="receita">Receita</label>
-                        </div>
-                        <!--CAMPANHA-->
-                        <div class="input-field">
-                          <input id="campanha" type="number" class="validate valor-input"
-                                 name="campanha" required>
-                          <label for="campanha">Despesa/Campanha</label>
-                        </div>
-                        <!--LUCRO-->
-                        <div class="input-field">
-                          <input id="lucro" type="number" class="validate valor-input" name="lucro"
-                                 required>
-                          <label for="lucro">Lucro %</label>
-                        </div>
-                        <!--PREJUIZO-->
-                        <div class="input-field">
-                          <input id="prejuizo" type="number" class="validate valor-input"
-                                 name="prejuizo" required>
-                          <label for="prejuizo">Prejuizo %</label>
-                        </div>
-
-
-                        <!-- BOTÃO LIMPAR -->
-                        <div class="input-field">
-                        </div>
-                      </form>
                     </div>
                   </div>
                 </div>
               </div>
-          </div>
-          </section>
+            </section>
 
-          <!--FOOTER-->
-          <footer>
-            <div class="container">
-              <p class="text-center">
-                <a href="https://github.com/brunorales" target="_blank">
-                  <strong>@BrunoMorales</strong>
-                </a>
-                <a href="http://fenmeyer.com.br" target="_blank">
-                  <strong>@FernandoMeyer</strong>
-                </a>
-                <a href="http://silviozum.github.io" target="_blank">
-                  <strong>@Silvinh0</strong>
-                </a>
-                // Todos os Direitos Reservados
-                <br>
-                <a href="http://funilator.me" target="_blank">
-                  <strong>Funilat0r <span class="version"></span></strong>
-                </a>
-              </p>
-            </div>
-          </footer>
+            <!--FOOTER-->
+            <footer>
+              <div class="container">
+                <p class="text-center">
+                  <a href="https://github.com/brunorales" target="_blank">
+                    <strong>@BrunoMorales</strong>
+                  </a>
+                  <a href="http://fenmeyer.com.br" target="_blank">
+                    <strong>@FernandoMeyer</strong>
+                  </a>
+                  <a href="http://silviozum.github.io" target="_blank">
+                    <strong>@Silvinh0</strong>
+                  </a>
+                  // Todos os Direitos Reservados
+                  <br>
+                  <a href="#home">
+                    <strong>Funilat0r <span class="version"></span></strong>
+                  </a>
+                </p>
+              </div>
+            </footer>
+          </div>
         </div>
       </div>
     </div>
-  </div>
   </div>
   <span style="color: #000000">I'll be back...</span>
 </header>

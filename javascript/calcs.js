@@ -5,31 +5,47 @@ let inputsArray = document.getElementsByClassName('valor-input');
 let mktVisiToLeads = 0.2;
 let mktLeadsToOpor = 0.1;
 let mktOporToClie = 0.25;
+let taxa = 0.05;
 
-setInterval(function(){
+setInterval(function () {
     let divMedias = document.getElementById('divMedias');
 
     let inputVisiToLeads = document.getElementById('visiToLeads');
     let inputLeadsToOpor = document.getElementById('leadsToOpor');
     let inputOporToClie = document.getElementById('oporToClie');
     let inputTaxa = document.getElementById('taxaConversao');
+    let msgSpan = document.getElementById('alertMsg');
+
     if (document.getElementById("usarMedia").checked === false) {
 
         divMedias.classList.remove('hidden');
 
-        if(inputTaxa.value !== ''){
+        if (inputTaxa.value !== '') {
+
             inputVisiToLeads.value = '';
             inputLeadsToOpor.value = '';
             inputOporToClie.value = '';
+
+            taxa = inputTaxa.value;
+
             for (input of inputsArray) {
                 input.disabled = false;
             }
-        }else{
-            if(inputOporToClie.value === '' || inputLeadsToOpor.value === '' || inputVisiToLeads.value === ''){
+        } else {
+            if (inputOporToClie.value === '' || inputLeadsToOpor.value === '' || inputVisiToLeads.value === '') {
+                if(inputOporToClie.value !== '' || inputLeadsToOpor.value !== '' || inputVisiToLeads.value !== ''){
+                    msgSpan.innerText = "Complete os três campos de porcetagem";
+                }
                 for (input of inputsArray) {
                     input.disabled = true;
                 }
-            }else{
+            } else {
+                msgSpan.innerText = "";
+
+                mktVisiToLeads = (inputVisiToLeads.value / 100);
+                mktLeadsToOpor = (inputLeadsToOpor.value / 100);
+                mktOporToClie = (inputOporToClie.value / 100);
+
                 for (input of inputsArray) {
                     input.disabled = false;
                 }
@@ -43,13 +59,16 @@ setInterval(function(){
         mktLeadsToOpor = 0.1;
         mktOporToClie = 0.25;
 
+        inputVisiToLeads.value = '';
+        inputLeadsToOpor.value = '';
+        inputOporToClie.value = '';
+        inputTaxa.value = '';
+
         for (input of inputsArray) {
             input.disabled = false;
         }
     }
-},1000);
-
-
+}, 1000);
 
 
 // Adiciona um evento onkeyup em todos os inputs da nossa collection
