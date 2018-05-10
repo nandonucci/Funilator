@@ -1,0 +1,28 @@
+body {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+  display: block;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 15px;
+  background-color: #000;
+  color: #00d3fe;
+}
+
+.container {
+  width: 100%;
+  text-align: center;
+}
+
+/*Ajuste da logo Painel*/
+#logo-funilator{
+  width: 300px;
+  margin: 0 auto;
+  margin-top: 50px;
+}
+
+#login{
+  width: 230px;
+  font-size: 14px;
+  margin-top: 10px;
+}

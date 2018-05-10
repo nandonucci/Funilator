@@ -56,7 +56,7 @@ html, body {
 HEADER
 -------------------------------------------------------------------------------
 */
-#home .menu {
+#home{
     position: fixed;
     left: -225px;
     width: 225px;
