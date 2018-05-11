@@ -232,7 +232,7 @@ TOPO
 <script src="javascript/retina.min.js"></script>
 <script src="javascript/scrollreveal.min.js"></script>
 <script src="javascript/preloader.js"></script>
-<script src="javascript/calcs.js"></script>
+<!--<script src="javascript/calcs.js"></script>-->
 <script src="javascript/version-control.js"></script>
 
 </body>

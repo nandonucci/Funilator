@@ -1,0 +1,143 @@
+body {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+  display: block;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 15px;
+  background-color: #000;
+  color: #00d3fe;
+}
+
+.container {
+  width: 100%;
+  text-align: center;
+}
+
+/*Ajuste da logo Painel*/
+#logo-funilator{
+  width: 300px;
+  margin: 0 auto;
+  margin-top: 50px;
+}
+
+#login{
+  width: 230px;
+  font-size: 14px;
+  margin-top: 10px;
+  color: #000;
+}
+
+.linkslogin{
+  margin-top: 15px;
+}
+
+.hvr-grow:hover, .hvr-grow:focus, .hvr-grow:active {
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
+}
+.list {
+  max-width: 980px;
+  margin: 0 auto;
+  margin-top: 50px;
+}
+.list ul li {width: 100%;}
+.list ul li a{
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid #9e9e9e;
+  border-radius: 0;
+  outline: 0;
+  height: 3rem;
+  width: 100%;
+  font-size: 1rem;
+  margin-bottom: 50px;
+  padding: 20px 0;
+  box-shadow: none;
+  box-sizing: content-box;
+  transition: all .3s;
+  text-align: left;
+  display: block;
+}
+
+.list .info-file{
+  display: inline-block;
+  color: #9e9e9e;
+  font-size: 1.8rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+.list .settings-file{
+  width: 400px;
+  text-align: right;
+  float: right;
+  display: inline-block;
+}
+.list .date-file{
+  color: #9e9e9e;
+  margin-right: 20px;
+}
+.list .settings-file .box-settings{
+  position: relative;
+  display: inline-block;
+  margin:0 4px;
+}
+.list .settings-file .box-settings button{
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  text-indent: -999em;
+  border: none;
+  background-color: transparent;
+}
+.settings-file .edit-file button{
+  background-image: url(../../images/icons/pencil.png);
+
+}
+.settings-file .delete-file button{
+  background-image: url(../../images/icons/error.png);
+
+}
+.settings-file .star-file button{
+  background-image: url(../../images/icons/star.png);
+
+}
+.settings-file .share-file button{
+  background-image: url(../../images/icons/diskette.png);
+}
+.hvr-grow {
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-transform: perspective(4px) translateZ(0);
+  transform: perspective(4px) translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  -webkit-transition-duration: 0.1s;
+  transition-duration: 0.1s;
+  -webkit-transition-property: transform;
+  transition-property: transform;
+}
+.tooltip-settings{
+  width: 80px;
+  text-align: center;
+  line-height: 25px;
+  background-color: #9e9e9e;
+  color: #000;
+  display: none;
+  font-weight: bold;
+  position: absolute;
+  text-transform: uppercase;
+  top: 30px;
+  left: -28px;
+}
+.settings-file .star-file:hover > .tooltip-settings{
+  display: block;
+}
+.settings-file .edit-file:hover > .tooltip-settings {
+  display: block;
+}
+.settings-file .share-file:hover > .tooltip-settings {
+  display: block;
+}
+.settings-file .delete-file:hover > .tooltip-settings {
+  display: block;
+}
