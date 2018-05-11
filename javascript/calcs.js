@@ -2,34 +2,50 @@
 let inputsArray = document.getElementsByClassName('valor-input');
 
 // Valores mkt médio
-let mktVisiToLeads = 0.2;
-let mktLeadsToOpor = 0.1;
-let mktOporToClie = 0.25;
+let mktVisiToLeads;
+let mktLeadsToOpor;
+let mktOporToClie;
+let taxa;
 
-setInterval(function(){
+setInterval(function () {
     let divMedias = document.getElementById('divMedias');
 
     let inputVisiToLeads = document.getElementById('visiToLeads');
     let inputLeadsToOpor = document.getElementById('leadsToOpor');
     let inputOporToClie = document.getElementById('oporToClie');
     let inputTaxa = document.getElementById('taxaConversao');
+    let msgSpan = document.getElementById('alertMsg');
+
     if (document.getElementById("usarMedia").checked === false) {
 
         divMedias.classList.remove('hidden');
 
-        if(inputTaxa.value !== ''){
+        if (inputTaxa.value !== '') {
+
             inputVisiToLeads.value = '';
             inputLeadsToOpor.value = '';
             inputOporToClie.value = '';
+
+            taxa = inputTaxa.value;
+
             for (input of inputsArray) {
                 input.disabled = false;
             }
-        }else{
-            if(inputOporToClie.value === '' || inputLeadsToOpor.value === '' || inputVisiToLeads.value === ''){
+        } else {
+            if (inputOporToClie.value === '' || inputLeadsToOpor.value === '' || inputVisiToLeads.value === '') {
+                if(inputOporToClie.value !== '' || inputLeadsToOpor.value !== '' || inputVisiToLeads.value !== ''){
+                    msgSpan.innerText = "Complete os três campos de porcetagem";
+                }
                 for (input of inputsArray) {
                     input.disabled = true;
                 }
-            }else{
+            } else {
+                msgSpan.innerText = "";
+
+                mktVisiToLeads = (inputVisiToLeads.value / 100);
+                mktLeadsToOpor = (inputLeadsToOpor.value / 100);
+                mktOporToClie = (inputOporToClie.value / 100);
+
                 for (input of inputsArray) {
                     input.disabled = false;
                 }
@@ -43,13 +59,16 @@ setInterval(function(){
         mktLeadsToOpor = 0.1;
         mktOporToClie = 0.25;
 
+        inputVisiToLeads.value = '';
+        inputLeadsToOpor.value = '';
+        inputOporToClie.value = '';
+        inputTaxa.value = '';
+
         for (input of inputsArray) {
             input.disabled = false;
         }
     }
-},1000);
-
-
+}, 1000);
 
 
 // Adiciona um evento onkeyup em todos os inputs da nossa collection
@@ -87,8 +106,16 @@ function calc() {
     }
 
     calclTM(returnField('receita').value, returnField('clientes').value);
-    calcLucro(returnField("receita").value, returnField("campanha").value);
-    calcCampanha(returnField('receita').value, returnField('lucro').value, returnField('prejuizo').value);
+
+    if(returnField('campanha').value !== "" && returnField('receita').value !== "" && returnField('lucro').value === '' && returnField('prejuizo').value === ''){
+        calcLucro(returnField("receita").value, returnField("campanha").value);
+    }else if(returnField('prejuizo').value !== '' && returnField('lucro').value !== ''){
+
+    }else{
+        calcCampanha(returnField('receita').value, returnField('lucro').value, returnField('prejuizo').value);
+        calcReceita(returnField('ticketmedio').value, returnField('clientes').value, returnField('lucro').value, returnField('prejuizo').value, returnField('campanha').value);
+    }
+
     calcCPL(returnField('campanha').value, returnField('leads').value);
     calcCAC(returnField('campanha').value, returnField('clientes').value);
 
@@ -206,17 +233,15 @@ function calcReceita(ticketMedio, cliente, lucro, prejuizo, despesa) {
     if (ticketMedio !== '' && cliente !== '') {
         if (returnField('receita') !== document.activeElement) {
             returnField('receita').value = (ticketMedio * cliente).toFixed(2);
-            console.log('oi');
         }
     } else {
-        if (despesa !== '' && (lucro !== '' || prejuizo !== '')) {
+        if (returnField('campanha') === document.activeElement && (lucro !== '' || prejuizo !== '')) {
             if (returnField('receita') !== document.activeElement) {
-                console.log('oi');
                 let receita;
                 if (lucro !== '') {
-                    receita = despesa + (despesa * (lucro / 100));
+                    receita = parseFloat(despesa) + (parseFloat(despesa) * (parseFloat(lucro) / 100));
                 } else {
-                    receita = despesa - (despesa * (prejuizo / 100));
+                    receita = despesa - (despesa * (parseFloat(prejuizo) / 100));
                 }
                 returnField('receita').value = receita.toFixed(2);
             }
@@ -226,14 +251,14 @@ function calcReceita(ticketMedio, cliente, lucro, prejuizo, despesa) {
 
 // Calcula Despesa/Campanha
 function calcCampanha(receita, lucro, prejuizo) {
-    if (receita !== '' && (lucro !== '' || prejuizo !== '')) {
+    if (returnField('receita') === document.activeElement && (lucro !== '' || prejuizo !== '')) {
         if (returnField('campanha') !== document.activeElement) {
             let campanha;
             if (lucro !== '') {
                 campanha = receita - (receita * (lucro / 100));
             } else if (prejuizo !== '') {
-                preju = (receita * (prejuizo / 100))
-                campanha = parseInt(receita) + parseInt(preju);
+                preju = (receita * (prejuizo / 100));
+                campanha = parseFloat(receita) + parseFloat(preju);
             }
             returnField('campanha').value = campanha;
         }
@@ -243,18 +268,20 @@ function calcCampanha(receita, lucro, prejuizo) {
 
 // Calcula Lucro/Prejuizo
 function calcLucro(valorReceita, valorDespesa) {
-    if (valorDespesa !== "" && valorReceita !== "") {
-        if (returnField('lucro') !== document.activeElement && returnField('prejuizo') !== document.activeElement) {
-            let lucroResult = valorReceita - valorDespesa;
-            let pct = (lucroResult / valorReceita) * 100;
-            if (lucroResult > 0) {
-                returnField('prejuizo').value = 0;
-                returnField('lucro').value = pct.toFixed(2);
-            }
-            else {
-                returnField('lucro').value = 0;
-                returnField('prejuizo').value = (pct * -1).toFixed(2);
-            }
+    if (valorDespesa !== "" && valorReceita !== "" && returnField('lucro').value === '' && returnField('prejuizo').value === '') {
+        if (returnField('lucro') !== document.activeElement && returnField('prejuizo') !== document.activeElement){
+
+            console.log("oi");
+            // let lucroResult = valorReceita - valorDespesa;
+            // let pct = (lucroResult / valorReceita) * 100;
+            // if (lucroResult > 0) {
+            //     returnField('prejuizo').value = 0;
+            //     returnField('lucro').value = pct.toFixed(2);
+            // }
+            // else {
+            //     returnField('lucro').value = 0;
+            //     returnField('prejuizo').value = (pct * -1).toFixed(2);
+            // }
         }
     }
 }
