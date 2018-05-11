@@ -18,7 +18,7 @@
     <div class="container">
       <img id="logo-funilator" class="img-responsive" src="../images/logo_funilator.png"
       alt="logo_funilator">
-      <form class="" action="index.php" method="post">
+      <form class="" action="includes/verificalogin.php" method="post">
 
         <div class="input-field">
           <input id="login" type="text" class="validate" name="username" required placeholder="E-mail">
@@ -27,9 +27,15 @@
           <input id="login" type="password" class="validate" name="password" required placeholder="Senha">
         </div>
         <div class="input-field">
-          <input id="login" type="submit" class="btn btn-success" name="login" value="Entrar">
+          <input id="login" type="submit" class="btn btn-warning" name="login" value="Entrar">
         </div>
       </form>
+      <div class="linkslogin">
+        <a href="#">Novo usuário?</a>
+        <br>
+        <a href="#">Esqueci a senha</a>
+      </div>
+
     </div>
   </header>
 </body>

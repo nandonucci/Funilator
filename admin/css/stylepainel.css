@@ -25,7 +25,13 @@ body {
   width: 230px;
   font-size: 14px;
   margin-top: 10px;
+  color: #000;
 }
+
+.linkslogin{
+  margin-top: 15px;
+}
+
 .hvr-grow:hover, .hvr-grow:focus, .hvr-grow:active {
   -webkit-transform: scale(1.1);
   transform: scale(1.1);

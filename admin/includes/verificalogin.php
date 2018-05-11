@@ -10,8 +10,11 @@ if (isset($_POST['login'])) {
   $username = mysqli_real_escape_string($connection, $username);
   $password = mysqli_real_escape_string($connection, $password);
 
-  $query = "SELECT * FROM funilator WHERE nm_usuario = '$username'";
+  $query = "SELECT * FROM fun_usuario WHERE  ds_email = '$username'";
   $select_usuario = mysqli_query($connection, $query);
+
+
+
 
   while ($row = mysqli_fetch_assoc($select_usuario)) {
     $db_id = $row['id'];
@@ -19,6 +22,9 @@ if (isset($_POST['login'])) {
     $db_password = $row['ds_senha'];
   }
 
+  echo $username . "=" . $db_user . "?<br>";
+
+echo $password . "=" . $db_password . "?";
   if ($username !== $db_user && $password !== $db_password) {
 
     header('Location: ../acesso.php');
