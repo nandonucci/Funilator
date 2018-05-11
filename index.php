@@ -201,16 +201,16 @@ TOPO
             <footer>
               <div class="container">
                 <p class="text-center">
-                  <a href="https://github.com/brunorales" target="_blank">
-                    <strong>@BrunoMorales</strong>
-                  </a>
-                  <a href="http://fenmeyer.com.br" target="_blank">
-                    <strong>@FernandoMeyer</strong>
-                  </a>
-                  <a href="http://silviozum.github.io" target="_blank">
-                    <strong>@Silvinh0</strong>
-                  </a>
-                  // Todos os Direitos Reservados
+<!--                  <a href="https://github.com/brunorales" target="_blank">-->
+<!--                    <strong>@BrunoMorales</strong>-->
+<!--                  </a>-->
+<!--                  <a href="http://fenmeyer.com.br" target="_blank">-->
+<!--                    <strong>@FernandoMeyer</strong>-->
+<!--                  </a>-->
+<!--                  <a href="http://silviozum.github.io" target="_blank">-->
+<!--                    <strong>@Silvinh0</strong>-->
+<!--                  </a>-->
+                  Todos os Direitos Reservados
                   <br>
                   <a href="#home">
                     <strong>Funilat0r <span class="version"></span></strong>
