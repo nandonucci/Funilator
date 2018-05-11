@@ -12,6 +12,7 @@
   <link href="../stylesheets/materialize.css" rel="stylesheet">
   <link href="../stylesheets/bootstrap.min.css" rel="stylesheet">
   <link href="css/stylepainel.css" rel="stylesheet">
+
 </head>
 <body onload="easterEgg('https://i.imgflip.com/27tjfs.jpg');">
   <header>
@@ -31,6 +32,140 @@
           <input id="login" type="submit" class="btn btn-success" name="login" value="Entrar">
         </div>
       </form> -->
+      <div class="list">
+        <ul>
+          <li class="hvr-grow">
+            <a href="">
+              <div class="info-file">
+                <span class="name-file">Calculo MKT 08</span>
+              </div>
+              <div class="settings-file">
+                <span class="date-file">20/12/1997</span>
+                <div class="box-settings star-file">
+                  <button>curtir</button>
+                  <span class="tooltip-settings">curtir</span>
+                </div>
+                <div class="edit-file box-settings">
+                  <button>editar</button>
+                  <span class="tooltip-settings">editar</span>
+                </div>
+                <div class="share-file box-settings">
+                  <button>compartilhar</button>
+                  <span class="tooltip-settings">compartilhar</span>
+                </div>
+                <div class="delete-file box-settings">
+                  <button>exluir</button>
+                  <span class="tooltip-settings">exluir</span>
+                </div>
+              </div>
+            </a>
+          </li>
+          <li class="hvr-grow">
+            <a href="">
+              <div class="info-file">
+                <span class="name-file">Calculo MKT 08</span>
+              </div>
+              <div class="settings-file">
+                <span class="date-file">20/12/1997</span>
+                <div class="box-settings star-file">
+                  <button>curtir</button>
+                  <span class="tooltip-settings">curtir</span>
+                </div>
+                <div class="edit-file box-settings">
+                  <button>editar</button>
+                  <span class="tooltip-settings">editar</span>
+                </div>
+                <div class="share-file box-settings">
+                  <button>compartilhar</button>
+                  <span class="tooltip-settings">compartilhar</span>
+                </div>
+                <div class="delete-file box-settings">
+                  <button>exluir</button>
+                  <span class="tooltip-settings">exluir</span>
+                </div>
+              </div>
+            </a>
+          </li>
+          <li class="hvr-grow">
+            <a href="">
+              <div class="info-file">
+                <span class="name-file">Calculo MKT 08</span>
+              </div>
+              <div class="settings-file">
+                <span class="date-file">20/12/1997</span>
+                <div class="box-settings star-file">
+                  <button>curtir</button>
+                  <span class="tooltip-settings">curtir</span>
+                </div>
+                <div class="edit-file box-settings">
+                  <button>editar</button>
+                  <span class="tooltip-settings">editar</span>
+                </div>
+                <div class="share-file box-settings">
+                  <button>compartilhar</button>
+                  <span class="tooltip-settings">compartilhar</span>
+                </div>
+                <div class="delete-file box-settings">
+                  <button>exluir</button>
+                  <span class="tooltip-settings">exluir</span>
+                </div>
+              </div>
+            </a>
+          </li>
+          <li class="hvr-grow">
+            <a href="">
+              <div class="info-file">
+                <span class="name-file">Calculo MKT 08</span>
+              </div>
+              <div class="settings-file">
+                <span class="date-file">20/12/1997</span>
+                <div class="box-settings star-file">
+                  <button>curtir</button>
+                  <span class="tooltip-settings">curtir</span>
+                </div>
+                <div class="edit-file box-settings">
+                  <button>editar</button>
+                  <span class="tooltip-settings">editar</span>
+                </div>
+                <div class="share-file box-settings">
+                  <button>compartilhar</button>
+                  <span class="tooltip-settings">compartilhar</span>
+                </div>
+                <div class="delete-file box-settings">
+                  <button>exluir</button>
+                  <span class="tooltip-settings">exluir</span>
+                </div>
+              </div>
+            </a>
+          </li>
+          <li class="hvr-grow">
+            <a href="">
+              <div class="info-file">
+                <span class="name-file">Calculo MKT 08</span>
+              </div>
+              <div class="settings-file">
+                <span class="date-file">20/12/1997</span>
+                <div class="box-settings star-file">
+                  <button>curtir</button>
+                  <span class="tooltip-settings">curtir</span>
+                </div>
+                <div class="edit-file box-settings">
+                  <button>editar</button>
+                  <span class="tooltip-settings">editar</span>
+                </div>
+                <div class="share-file box-settings">
+                  <button>compartilhar</button>
+                  <span class="tooltip-settings">compartilhar</span>
+                </div>
+                <div class="delete-file box-settings">
+                  <button>exluir</button>
+                  <span class="tooltip-settings">exluir</span>
+                </div>
+              </div>
+            </a>
+          </li>
+        </ul>
+      </div>
     </div>
   </header>
 </body>

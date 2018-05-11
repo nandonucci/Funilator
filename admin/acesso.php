@@ -18,7 +18,7 @@
     <div class="container">
       <img id="logo-funilator" class="img-responsive" src="../images/logo_funilator.png"
       alt="logo_funilator">
-      <form class="" action="includes/verificalogin.php" method="post">
+      <form class="" action="index.php" method="post">
 
         <div class="input-field">
           <input id="login" type="text" class="validate" name="username" required placeholder="E-mail">
