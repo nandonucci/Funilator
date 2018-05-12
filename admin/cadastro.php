@@ -1,3 +1,4 @@
+<?php include 'includes/functions.php'; ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
@@ -16,9 +17,13 @@
 <body onload="easterEgg('https://i.imgflip.com/27tjfs.jpg');">
   <header>
     <div class="container">
-      <img id="logo-funilator" class="img-responsive" src="../images/logo_funilator.png"
-      alt="logo_funilator">
-      <form class="" action="includes/verificalogin.php" method="post">
+      <a href="../index.php"><img id="logo-funilator" class="img-responsive" src="../images/logo_funilator.png"
+      alt="logo_funilator"></a>
+      <form class="" action="includes/functions.php" method="post">
+        <h4>Faça seu cadastro</h4>
+        <div class="input-field">
+          <input id="login" type="text" class="validate" name="username" required placeholder="Usuário">
+        </div>
         <div class="input-field">
           <input id="login" type="text" class="validate" name="email" required placeholder="E-mail">
         </div>
@@ -26,14 +31,16 @@
           <input id="login" type="password" class="validate" name="password" required placeholder="Senha">
         </div>
         <div class="input-field">
-          <input id="login" type="submit" class="btn btn-warning" name="login" value="Entrar">
+          <input id="login" type="password" class="validate" name="passwordconfirm" required placeholder="Repita a senha">
+        </div>
+        <div class="input-field">
+          <input id="login" type="submit" class="btn btn-success" name="adicionar" value="Gravar">
         </div>
       </form>
       <div class="linkslogin">
-        <a href="cadastro.php">Novo usuário?</a>
-        <br>
-        <a href="#">Esqueci a senha</a>
+        <a href="../index.php">Não quero mais, tchau!</a>
       </div>
+
     </div>
   </header>
 </body>

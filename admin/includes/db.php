@@ -9,6 +9,6 @@
     if(!$connection){
         die('Não conectou');
     } else {
-      echo "Deu bom!";
+    //  echo "Deu bom!";
     }
 ?>

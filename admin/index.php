@@ -1,3 +1,17 @@
+<?php include 'includes/verificalogin.php'; ?>
+<?php
+
+  if (!isset($_SESSION)) {
+    session_start();
+}
+
+?>
+
+<?php if (!isset($_SESSION['ds_email'])) {
+  if ($_SESSION['ds_email'] != 'ds_email') {
+    header('Location: acesso.php');
+  }
+} ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
@@ -19,8 +33,9 @@
     <div class="container">
       <img id="logo-funilator" class="img-responsive" src="../images/logo_funilator.png"
       alt="logo_funilator">
-
+      Olá, <?php echo $_SESSION['username'] ?>
       <a href="includes/logout.php"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+
       <!-- <form class="" action="includes/verificalogin.php" method="post">
         <div class="input-field">
           <input id="login" type="text" class="validate" name="username" required placeholder="E-mail">

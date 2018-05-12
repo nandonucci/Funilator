@@ -6,7 +6,7 @@ body {
   font-family: 'IBM Plex Mono', monospace;
   font-size: 15px;
   background-color: #000;
-  color: #00d3fe;
+
 }
 
 .container {
@@ -25,11 +25,11 @@ body {
   width: 230px;
   font-size: 14px;
   margin-top: 10px;
-  color: #000;
 }
 
 .linkslogin{
   margin-top: 15px;
+  margin-bottom: 100px;
 }
 
 .hvr-grow:hover, .hvr-grow:focus, .hvr-grow:active {
