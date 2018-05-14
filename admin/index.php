@@ -34,7 +34,9 @@
         <a href="index.php"><img id="logo-funilator" class="img-responsive" src="../images/logo_funilator.png"
                                     alt="logo_funilator"></a>
       Olá, <?php echo $_SESSION['username'] ?>
-      <a href="includes/logout.php"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+      <br>
+      <a href="atualizacliente.php"><i class="fa fa-fw fa-power-off"></i>//Dados usuário</a>
+      <a href="includes/logout.php">  <i class="fa fa-fw fa-power-off"></i>//Log Out</a>
 
       <!-- <form class="" action="includes/verificalogin.php" method="post">
         <div class="input-field">

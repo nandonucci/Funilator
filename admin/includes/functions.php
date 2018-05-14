@@ -26,13 +26,37 @@ function novoUsuario(){
   }
 }
 
+// //Função atualiza cadastro
+// function atualizaCadastro(){
+//   global $connection;
+//   if (isset($_POST['atualizar'])) {
+//
+//     $ds_email = $_POST['email'];
+//     $username = $_POST['username'];
+//     $password = $_POST['password'];
+//
+//     $sql = "UPDATE fun_usuario SET cat_nome = '$atualizar' WHERE cat_id = $cat_id ";
+//
+//     UPDATE fun_usuario SET nm_usuario = $username, ds_senha = $password, ds_email = $ds_email WHERE id = [value-1]
+//
+//     $resultado = mysqli_query($connection, $sql);
+//
+//     if (!$resultado) {
+//       die('Não deu certo a atulização');
+//     } else {
+//       echo "Catergoria atualização com sucesso!";
+//     }
+//
+//   }
+// }
+
 // //Exibir calculos
 // function mostraCalculos(){
 //   global $connection;
-//   $query = "SELECT * FROM categoria";
+//   $query = "SELECT * FROM fun_usuario";
 //   $select_todas_categorias = mysqli_query($connection, $query);
 //
-//   while($row = mysqli_fetch_assoc($select_todas_categorias)){
+//   while($row = mysqli_fetch_assoc($todos_calculos)){
 //     $cat_nome = $row['cat_nome'];
 //     $cat_id = $row['cat_id'];
 //
@@ -43,7 +67,6 @@ function novoUsuario(){
 //     echo "<td><a href='categorias.php?edit={$cat_id}'>Editar</a></td>";
 //     echo "</tr>";
 //   }
-//
 // }
 
 // //Apagar calculo
@@ -64,20 +87,5 @@ function novoUsuario(){
 //   }
 // }
 
-// //Função atualiza cadastro
-// function atualizaCadastro(){
-//   global $connection;
-//   if (isset($_POST['atualizar'])) {
-//     $atualizar = $_POST['cat_nome'];
-//     $sql = "UPDATE categoria SET cat_nome = '$atualizar' WHERE cat_id = $cat_id ";
-//     $resultado = mysqli_query($connection, $sql);
-//
-//     if (!$resultado) {
-//       die('Não deu certo a atulização');
-//     } else {
-//       echo "Catergoria atualização com sucesso!";
-//     }
-//
-//   }
-// }
+
 ?>
