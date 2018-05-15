@@ -30,6 +30,7 @@ echo $password . "=" . $db_password . "?";
 
   } elseif ($username == $db_email && $password == $db_password) {
 
+    $_SESSION['id'] = $db_id;
     $_SESSION['ds_email'] = $db_email;
     $_SESSION['password'] = $db_password;
     $_SESSION['username'] = $db_user;

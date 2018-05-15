@@ -1,6 +1,7 @@
 <?php
   include 'includes/functions.php';
-  novoUsuario();
+  session_start();
+  atualizaCadastro();
 ?>
 
 <!DOCTYPE html>
@@ -23,25 +24,25 @@
     <div class="container">
       <a href="../index.php"><img id="logo-funilator" class="img-responsive" src="../images/logo_funilator.png"
       alt="logo_funilator"></a>
-      <form class="" action="cadastro.php" method="post">
-        <h4>Faça seu cadastro</h4>
+      <form class="" action="update.php" method="post">
+        <h4>Digite os dados que deseja alterar</h4>
         <div class="input-field">
-          <input id="login" type="text" class="validate" name="username" required placeholder="Usuário">
+          <input id="login" type="text" class="validate" name="username" placeholder="Usuário">
         </div>
         <div class="input-field">
-          <input id="login" type="text" class="validate" name="email" required placeholder="E-mail">
+          <input id="login" type="text" class="validate" name="email" placeholder="E-mail">
         </div>
         <div class="input-field">
-          <input id="login" type="password" class="validate" name="password" required placeholder="Senha">
+          <input id="login" type="password" class="validate" name="password" placeholder="Senha">
         </div>
         <div class="input-field">
-          <input id="login" type="password" class="validate" name="passwordconfirm" required placeholder="Repita a senha">
+          <input id="login" type="password" class="validate" name="passwordconfirm" placeholder="Repita a senha">
         </div>
         <div class="input-field">
-          <input id="login" type="submit" class="btn btn-success" name="atualizar" value="Gravar">
+          <input id="login" type="submit" class="btn btn-success" name="atualizar" value="Atualizar">
         </div>
         <div class="input-field">
-          <input id="login" type="submit" class="btn btn-danger" name="atualizar" value="Cancelar">
+          <input id="login" type="submit" class="btn btn-danger" name="cancelar" value="Cancelar">
         </div>
       </form>
 
