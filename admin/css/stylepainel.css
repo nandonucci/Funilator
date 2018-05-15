@@ -27,6 +27,10 @@ body {
   margin-top: 10px;
 }
 
+.input-field input{
+  color: #FFF;
+}
+
 .linkslogin{
   margin-top: 15px;
   margin-bottom: 100px;

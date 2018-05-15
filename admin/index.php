@@ -1,17 +1,11 @@
 <?php include 'includes/verificalogin.php'; ?>
-<?php
-
-  if (!isset($_SESSION)) {
-    session_start();
-}
-
-?>
 
 <?php if (!isset($_SESSION['ds_email'])) {
   if ($_SESSION['ds_email'] != 'ds_email') {
     header('Location: acesso.php');
   }
-} ?>
+}
+?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>

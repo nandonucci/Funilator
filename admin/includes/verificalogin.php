@@ -1,6 +1,5 @@
 <?php include 'db.php'; ?>
 <?php session_start(); ?>
-
 <?php
 
 if (isset($_POST['login'])) {
@@ -13,7 +12,6 @@ if (isset($_POST['login'])) {
   $query = "SELECT * FROM fun_usuario WHERE  ds_email = '$username'";
   $select_usuario = mysqli_query($connection, $query);
 
-
   while ($row = mysqli_fetch_assoc($select_usuario)) {
     $db_id = $row['id'];
     $db_email = $row['ds_email'];
@@ -21,9 +19,6 @@ if (isset($_POST['login'])) {
     $db_user = $row['nm_usuario'];
   }
 
-  echo $username . "=" . $db_email . "?<br>";
-
-echo $password . "=" . $db_password . "?";
   if ($username !== $db_email && $password !== $db_password) {
 
     header('Location: ../acesso.php');
