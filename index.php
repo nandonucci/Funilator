@@ -1,4 +1,3 @@
-<?php include ''; ?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -74,10 +73,7 @@ TOPO
                                         cálculos dolorosos e
                                         demorados do seu funil de vendas, é grátis, divirta-se.</p>
                                 </div>
-                                <div>
-                                    Olá, <?php echo $_SESSION['username'] ?>
-                                    <a href="includes/logout.php"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
-                                </div>
+
                                 <div class="row">
                                     <div id="contact-card" class="col-sm-12 col-xs-12">
                                         <!-- FORM INPUT DADOS -->
