@@ -1,11 +1,7 @@
-<?php include 'db.php'; ?>
-<?php session_start(); ?>
-
 <?php
 
-    $_SESSION['ds_email'] = null;
-    $_SESSION['password'] = null;
-
-    header('Location: ../acesso.php');
+ session_start();
+ session_destroy();
+ header('Location: ../acesso.php');
 
 ?>

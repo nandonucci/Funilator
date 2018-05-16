@@ -1,3 +1,11 @@
+<?php
+  include 'includes/verificalogin.php';
+  if(verifica()){
+    header('Location: index.php');
+  };
+  include 'includes/functions.php';
+  logar();
+?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
@@ -18,7 +26,7 @@
     <div class="container">
         <a href="../index.php"><img id="logo-funilator" class="img-responsive" src="../images/logo_funilator.png"
                                     alt="logo_funilator"></a>
-      <form class="" action="includes/verificalogin.php" method="post">
+      <form class="" action="acesso.php" method="post">
         <div class="input-field">
           <input id="login" type="text" class="validate" name="email" required placeholder="E-mail">
         </div>
