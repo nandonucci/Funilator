@@ -99,7 +99,7 @@
       echo $password . "=" . $db_password . "?";
       if ($username !== $db_email && $password !== $db_password) {
 
-        header('Location: ../acesso.php');
+        header('Location: acesso.php');
 
       } elseif ($username == $db_email && $password == $db_password) {
 
@@ -108,11 +108,11 @@
         $_SESSION['password'] = $db_password;
         $_SESSION['username'] = $db_user;
 
-        header('Location: ../admin/index.php');
+        header('Location: index.php');
 
       } else {
 
-        header('Location: ../acesso.php');
+        header('Location: acesso.php');
 
       }
     }
