@@ -1,17 +1,10 @@
-<?php include 'includes/verificalogin.php'; ?>
 <?php
-
-  if (!isset($_SESSION)) {
-    session_start();
-}
-
+  include 'includes/verificalogin.php';
+  if(!verifica()){
+    header('Location: acesso.php');
+  };
 ?>
 
-<?php if (!isset($_SESSION['ds_email'])) {
-  if ($_SESSION['ds_email'] != 'ds_email') {
-    header('Location: acesso.php');
-  }
-} ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
@@ -33,7 +26,7 @@
     <div class="container">
         <a href="index.php"><img id="logo-funilator" class="img-responsive" src="../images/logo_funilator.png"
                                     alt="logo_funilator"></a>
-      Olá, <?php echo $_SESSION['username'] ?>
+      Olá, <?php echo $_SESSION['username']; ?>
       <br>
       <a href="update.php"><i class="fa fa-fw fa-power-off"></i>//Dados usuário</a>
       <a href="includes/logout.php">  <i class="fa fa-fw fa-power-off"></i>//Log Out</a>
