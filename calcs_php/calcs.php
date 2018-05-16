@@ -8,47 +8,47 @@
 
 // Calcula os Leads a partir dos Visitantes
 function calcVisiToLeads($visitantes, $pctVisiToLeads){
-    return round($visitantes * $pctVisiToLeads);
+    return ceil($visitantes * $pctVisiToLeads);
 }
 
 // Calcula as Oportunidades a partir dos Leads
 function calcLeadsToOpor($leads, $pctLeadsToOpor){
-    return round($leads * $pctLeadsToOpor);
+    return ceil($leads * $pctLeadsToOpor);
 }
 
 // Calcula os Clientes a partir das Oportunidades
 function calcOporToClie($oportunidades, $pctOporToClie){
-    return round($oportunidades * $pctOporToClie);
+    return ceil($oportunidades * $pctOporToClie);
 }
 
 // Calcula as Oportunidades a partir dos Clientes
 function calcClieToOpor($clientes, $pctOporToClie){
-    return round($clientes / $pctOporToClie);
+    return ceil($clientes / $pctOporToClie);
 }
 
 // Calcula os Leads a partir das Oportunidades
 function calcOporToLeads($oportunidades, $pctLeadsToOpor){
-    return round($oportunidades / $pctLeadsToOpor);
+    return ceil($oportunidades / $pctLeadsToOpor);
 }
 
 // Calcula os Visitantes a partir dos Leads
 function calcLeadsToVisi($leads, $pctVisiToLeads){
-    return round($leads / $pctVisiToLeads);
+    return ceil($leads / $pctVisiToLeads);
 }
 
 // Calcula os Visitantes pela taxa de conversao
 function calcVisiByTxConversao($clientes, $taxaConversao){
-    return round($clientes / $taxaConversao);
+    return ceil($clientes / $taxaConversao);
 }
 
 // Calcula os Clientes pela taxa de conversao
 function calcClieByTxConversao($visitantes, $taxaConversao){
-    return round($visitantes * $taxaConversao);
+    return ceil($visitantes * ($taxaConversao * 10));
 }
 
 // Calcula os Clientes pela receita e Ticket Medio
 function calcClieByTmEReceita($ticketMedio, $receita){
-    return round($ticketMedio / $receita);
+    return round($receita / $ticketMedio);
 }
 
 //Calcula o Ticket medio
@@ -91,6 +91,10 @@ function calcCampanhaByPreju($receita, $prejuizo){
     return round($receita + ($receita * $prejuizo), 2);
 }
 
+function calcCampanhaByCac($cac, $clientes){
+    return $cac * $clientes;
+}
+
 // calcula o lucro
 function calcLucro($receita, $campanha){
     return round((($receita - $campanha) / $receita) * 100, 2);
@@ -110,4 +114,12 @@ function calcLucroOuPreju($receita, $campanha){
         return "preju";
     }
 
+}
+
+function calcLeadsByCplECampanha($cpl, $campanha){
+    return ceil($campanha / $cpl);
+}
+
+function calcTaxaDeConversao($visitantes, $clientes){
+    return ($clientes * 100) / $visitantes;
 }

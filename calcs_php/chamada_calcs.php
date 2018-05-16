@@ -1,10 +1,10 @@
 <?php
 /**
-* Created by PhpStorm.
-* User: morales
-* Date: 5/11/2018
-* Time: 3:29 PM
-*/
+ * Created by PhpStorm.
+ * User: morales
+ * Date: 5/11/2018
+ * Time: 3:29 PM
+ */
 
 include "calcs.php";
 
@@ -28,8 +28,8 @@ function calc()
         $cpl = $_POST['cpl'];
         $receita = $_POST['receita'];
         $campanha = $_POST['campanha'];
-        $lucro = $_POST['lucro'];
-        $prejuizo = $_POST['prejuizo'];
+        $lucro = $_POST['lucro'] !== "" ? ($_POST['lucro'] / 100) : "";
+        $prejuizo = $_POST['prejuizo'] !== "" ? ($_POST['prejuizo'] / 100) : "";
 
         $ticketMedioCalc = false;
         $cacCalc = false;
@@ -40,109 +40,155 @@ function calc()
 
         if ($visitantes !== "" && $taxaConversao === "") {
 
-            echo "<li><span>Porcentagem Visitantes para Leads utilizada:</span><p>" . $pctVisiToLeads * 100 . "%</p>";
-            echo "<li><span>Porcentagem Leads para Oportunidades utilizada:</span><p>" . $pctLeadsToOpor * 100 . "%</p>";
-            echo "<li><span>Porcentagem Oportunidades para Clientes utilizada:</span><p>" . $pctOporToClie * 100 . "%</p>";
+            if ($ticketMedio !== "" && $receita !== "") {
 
-            $leadsResultado = calcVisiToLeads($visitantes, $pctVisiToLeads);
-            $oportunidadesResultado = calcLeadsToOpor($leadsResultado, $pctLeadsToOpor);
-            $clientesResultado = calcOporToClie($oportunidadesResultado, $pctOporToClie);
+                echo "<li><span>Visitantes:</span><p>" . $visitantes . "</p></li>";
 
-            echo "<li><span>Visitantes:</span><p>" . $visitantes . "</p></li>";
-            echo "<li><span>Leads:</span><p>" . $leadsResultado . "</p></li>";
-            echo "<li><span>Oportunidades:</span><p>" . $oportunidadesResultado . "</p></li>";
-            echo "<li><span>Clientes:</span><p>" . $clientesResultado . "</p></li>";
+                $clientesResultado = calcClieByTmEReceita($ticketMedio, $receita);
 
-            $ticketMedioResultado = 0;
-            $cacResultado = 0;
-            $cplResultado = 0;
-            $receitaResultado = 0;
-            $campanhaResultado = 0;
-            $lucroResultado = 0;
-            $prejuizoResultado = 0;
+                echo "<li><span>Clientes:</span><p>" . $clientesResultado . "</p></li>";
 
-            if ($receita !== "" && $ticketMedio === "") {
+                $taxaConversaoResultado = calcTaxaDeConversao($visitantes, $clientesResultado);
 
-                $ticketMedioResultado = calcTicketMedio($receita, $clientesResultado);
+                echo "<li><span>Taxa de Conversão:</span><p>" . $taxaConversaoResultado . "%</p></li>";
 
-                echo "<li><span>Ticket Médio:</span><p>R$" . $ticketMedioResultado . "</p></li>";
+            } else if ($campanha !== "" && $ticketMedio !== "") {
 
-                $ticketMedioCalc = true;
+                if ($prejuizo !== "" || $lucro !== "") {
 
-            }
+                    if ($lucro !== "") {
 
-            if ($campanha !== "" && $cac === "") {
+                        $receitaResultado = calcReceitaByLucro($campanha, $lucro);
 
-                $cacResultado = calcCAC($campanha, $clientesResultado);
-
-                echo "<li><span>CAC:</span><p>R$" . $cacResultado . "</p></li>";
-
-                $cacCalc = true;
-
-            }
-
-            if ($campanha !== "" && $cpl === "") {
-
-                $cplResultado = calcCPL($campanha, $leadsResultado);
-
-                echo "<li><span>CPL:</span><p>R$" . $cplResultado . "</p></li>";
-
-                $cplCalc = true;
-
-            }
-
-            if ($receita === "" && $ticketMedio === "") {
-
-                $receitaResultado = calcReceitaByTmEClientes($ticketMedioResultado, $clientesResultado);
-
-                echo "<li><span>Receita:</span><p>R$" . $receitaResultado . "</p></li>";
-
-                $receitaCalc = true;
-
-            }
-
-            if (($lucro !== "" || $prejuizo !== "") && $campanha === "" && $receita === "") {
-
-                if ($lucro !== "") {
-
-                    $campanhaResultado = calcCampanhaByLucro($receitaResultado, $lucro);
-
-                    echo "<li><span>Campanha:</span><p>R$" . $campanhaResultado . "</p></li>";
-
-                    $campanhaCalc = true;
-
-                } else {
-
-                    $campanhaResultado = calcCampanhaByPreju($receitaResultado, $prejuizo);
-
-                    echo "<li><span>Campanha:</span><p>R$" . $campanhaResultado . "</p></li>";
-
-                    $campanhaCalc = true;
-
-                }
-            }
-
-            if ($lucro === "" && $prejuizo === "") {
-
-                if ($campanhaResultado !== 0) {
-
-                    if (calcLucroOuPreju($receitaResultado, $campanhaResultado) === "lucro") {
-
-                        $lucroResultado = calcLucro($receitaResultado, $campanhaResultado);
-
-                        echo "<li><span>Lucro:</span><p>" . $lucroResultado . "%</p>";
+                        echo "<li><span>Receita:</span><p>R$" . $receitaResultado . "</p></li>";
 
                     } else {
 
-                        $prejuizoResultado = calcPreju($receitaResultado, $campanhaResultado);
+                        $receitaResultado = calcReceitaByPreju($campanha, $prejuizo);
 
-                        echo "<li><span>Prejuízo:</span><p>" . $prejuizoResultado . "%</p>";
+                        echo "<li><span>Receita:</span><p>R$" . $receitaResultado . "</p></li>";
 
                     }
 
-                    $lucroPrejuCalc = true;
+                    $receitaCalc = true;
+
+                    $clientesResultado = calcClieByTmEReceita($ticketMedio, $receitaResultado);
+
+                    echo "<li><span>Clientes:</span><p>" . $clientesResultado . "</p></li>";
+
+                    $taxaConversaoResultado = calcTaxaDeConversao($visitantes, $clientesResultado);
+
+                    echo "<li><span>Taxa de Conversão:</span><p>" . $taxaConversaoResultado . "%</p></li>";
 
                 }
+
+            } else {
+                echo "<li><span>Porcentagem Visitantes para Leads utilizada:</span><p>" . $pctVisiToLeads * 100 . "%</p>";
+                echo "<li><span>Porcentagem Leads para Oportunidades utilizada:</span><p>" . $pctLeadsToOpor * 100 . "%</p>";
+                echo "<li><span>Porcentagem Oportunidades para Clientes utilizada:</span><p>" . $pctOporToClie * 100 . "%</p>";
+
+                $leadsResultado = calcVisiToLeads($visitantes, $pctVisiToLeads);
+                $oportunidadesResultado = calcLeadsToOpor($leadsResultado, $pctLeadsToOpor);
+                $clientesResultado = calcOporToClie($oportunidadesResultado, $pctOporToClie);
+
+                echo "<li><span>Visitantes:</span><p>" . $visitantes . "</p></li>";
+                echo "<li><span>Leads:</span><p>" . $leadsResultado . "</p></li>";
+                echo "<li><span>Oportunidades:</span><p>" . $oportunidadesResultado . "</p></li>";
+                echo "<li><span>Clientes:</span><p>" . $clientesResultado . "</p></li>";
+
+                $ticketMedioResultado = 0;
+                $cacResultado = 0;
+                $cplResultado = 0;
+                $receitaResultado = 0;
+                $campanhaResultado = 0;
+                $lucroResultado = 0;
+                $prejuizoResultado = 0;
+
+                if ($receita !== "" && $ticketMedio === "") {
+
+                    $ticketMedioResultado = calcTicketMedio($receita, $clientesResultado);
+
+                    echo "<li><span>Ticket Médio:</span><p>R$" . $ticketMedioResultado . "</p></li>";
+
+                    $ticketMedioCalc = true;
+
+                }
+
+                if ($campanha !== "" && $cac === "") {
+
+                    $cacResultado = calcCAC($campanha, $clientesResultado);
+
+                    echo "<li><span>CAC:</span><p>R$" . $cacResultado . "</p></li>";
+
+                    $cacCalc = true;
+
+                }
+
+                if ($campanha !== "" && $cpl === "") {
+
+                    $cplResultado = calcCPL($campanha, $leadsResultado);
+
+                    echo "<li><span>CPL:</span><p>R$" . $cplResultado . "</p></li>";
+
+                    $cplCalc = true;
+
+                }
+
+                if ($receita === "" && $ticketMedio === "") {
+
+                    $receitaResultado = calcReceitaByTmEClientes($ticketMedioResultado, $clientesResultado);
+
+                    echo "<li><span>Receita:</span><p>R$" . $receitaResultado . "</p></li>";
+
+                    $receitaCalc = true;
+
+                }
+
+                if (($lucro !== "" || $prejuizo !== "") && $campanha === "" && $receita === "") {
+
+                    if ($lucro !== "") {
+
+                        $campanhaResultado = calcCampanhaByLucro($receitaResultado, $lucro);
+
+                        echo "<li><span>Campanha:</span><p>R$" . $campanhaResultado . "</p></li>";
+
+                        $campanhaCalc = true;
+
+                    } else {
+
+                        $campanhaResultado = calcCampanhaByPreju($receitaResultado, $prejuizo);
+
+                        echo "<li><span>Campanha:</span><p>R$" . $campanhaResultado . "</p></li>";
+
+                        $campanhaCalc = true;
+
+                    }
+                }
+
+                if ($lucro === "" && $prejuizo === "") {
+
+                    if ($campanhaResultado !== 0) {
+
+                        if (calcLucroOuPreju($receitaResultado, $campanhaResultado) === "lucro") {
+
+                            $lucroResultado = calcLucro($receitaResultado, $campanhaResultado);
+
+                            echo "<li><span>Lucro:</span><p>" . $lucroResultado . "%</p>";
+
+                        } else {
+
+                            $prejuizoResultado = calcPreju($receitaResultado, $campanhaResultado);
+
+                            echo "<li><span>Prejuízo:</span><p>" . $prejuizoResultado . "%</p>";
+
+                        }
+
+                        $lucroPrejuCalc = true;
+
+                    }
+
+                }
+
 
             }
 
@@ -163,6 +209,36 @@ function calc()
             $lucroResultado = 0;
             $prejuizoResultado = 0;
 
+            if ($campanha !== "" && ($prejuizo !== "" || $lucro !== "")) {
+
+                if ($lucro !== "") {
+
+                    $receitaResultado = calcReceitaByLucro($campanha, $lucro);
+
+                    echo "<li><span>Receita:</span><p>R$" . $receitaResultado . "</p></li>";
+
+                } else {
+
+                    $receitaResultado = calcReceitaByPreju($campanha, $prejuizo);
+
+                    echo "<li><span>Receita:</span><p>R$" . $receitaResultado . "</p></li>";
+
+                }
+
+                $receitaCalc = true;
+
+                if ($ticketMedio === "") {
+
+                    $ticketMedioResultado = calcTicketMedio($receitaResultado, $clientesResultado);
+
+                    echo "<li><span>Ticket Médio:</span><p>R$" . $ticketMedioResultado . "</p></li>";
+
+                    $ticketMedioCalc = true;
+
+                }
+
+            }
+
             if ($receita !== "" && $ticketMedio === "") {
 
                 $ticketMedioResultado = calcTicketMedio($receita, $clientesResultado);
@@ -233,6 +309,42 @@ function calc()
                     }
 
                     $lucroPrejuCalc = true;
+
+                }
+
+            }
+
+            if ($cac !== "") {
+
+                $campanhaResultado = calcCampanhaByCac($cac, $clientesResultado);
+
+                echo "<li><span>Campanha:</span><p>R$" . $campanhaResultado . "</p>";
+
+                $campanhaCalc = true;
+
+                if ($lucro !== "" || $prejuizo !== "") {
+
+                    if ($lucro !== "") {
+
+                        $receitaResultado = calcReceitaByLucro($campanhaResultado, $lucro);
+
+                        echo "<li><span>Receita:</span><p>R$" . $receitaResultado . "</p>";
+
+                    } else {
+
+                        $receitaResultado = calcReceitaByPreju($campanhaResultado, $prejuizo);
+
+                        echo "<li><span>Receita:</span><p>R$" . $receitaResultado . "</p>";
+
+                    }
+
+                    $receitaCalc = true;
+
+                    $ticketMedioResultado = calcTicketMedio($receitaResultado, $clientesResultado);
+
+                    echo "<li><span>Ticket Médio:</span><p>R$" . $ticketMedioResultado . "</p>";
+
+                    $ticketMedioCalc = true;
 
                 }
 
@@ -281,13 +393,32 @@ function calc()
 
             }
 
-            if ($receita === "" && $ticketMedio === "") {
+            if ($receita === "" && $ticketMedio !== "") {
 
-                $receitaResultado = calcReceitaByTmEClientes($ticketMedioResultado, $clientesResultado);
+                $receitaResultado = calcReceitaByTmEClientes($ticketMedio, $clientesResultado);
 
                 echo "<li><span>Receita:</span><p>R$" . $receitaResultado . "</p></li>";
 
                 $receitaCalc = true;
+
+                if ($lucro !== "" || $prejuizo !== "") {
+
+                    if ($lucro !== "") {
+
+                        $campanhaResultado = calcCampanhaByLucro($receitaResultado, $lucro);
+
+                        echo "<li><span>Campanha:</span><p>R$" . $campanhaResultado . "</p></li>";
+
+                    } else {
+
+                        $campanhaResultado = calcCampanhaByPreju($receitaResultado, $prejuizo);
+
+                        echo "<li><span>Campanha:</span><p>R$" . $campanhaResultado . "</p></li>";
+                    }
+
+                    $campanhaCalc = true;
+
+                }
 
             }
 
@@ -505,6 +636,25 @@ function calc()
 
         }
 
+        if ($campanha !== "" && $cpl !== "") {
+
+            $leadsResultado = calcLeadsByCplECampanha($cpl, $campanha);
+
+            echo "<li><span>Porcentagem Visitantes para Leads utilizada:</span><p>" . $pctVisiToLeads * 100 . "%</p>";
+            echo "<li><span>Porcentagem Leads para Oportunidades utilizada:</span><p>" . $pctLeadsToOpor * 100 . "%</p>";
+            echo "<li><span>Porcentagem Oportunidades para Clientes utilizada:</span><p>" . $pctOporToClie * 100 . "%</p>";
+
+            $visitantesResultado = calcLeadsToVisi($leadsResultado, $pctVisiToLeads);
+            $oportunidadesResultado = calcLeadsToOpor($leadsResultado, $pctLeadsToOpor);
+            $clientesResultado = calcOporToClie($oportunidadesResultado, $pctOporToClie);
+
+            echo "<li><span>Visitantes:</span><p>" . $visitantesResultado . "</p></li>";
+            echo "<li><span>Leads:</span><p>" . $leadsResultado . "</p></li>";
+            echo "<li><span>Oportunidades:</span><p>" . $oportunidadesResultado . "</p></li>";
+            echo "<li><span>Clientes:</span><p>" . $clientesResultado . "</p></li>";
+
+        }
+
         if ($ticketMedioCalc === false) {
 
             if ($clientes !== "" && $receita !== "") {
@@ -549,6 +699,24 @@ function calc()
 
                 echo "<li><span>Receita:</span><p>R$" . $receitaResultado . "</p></li>";
 
+                if ($lucro !== "") {
+
+                    $campanhaResultado = calcCampanhaByLucro($receitaResultado, $lucro);
+
+                    echo "<li><span>Campanha:</span><p>R$" . $campanhaResultado . "</p></li>";
+
+                    $campanhaCalc = true;
+
+                } else if ($prejuizo !== "") {
+
+                    $campanhaResultado = calcCampanhaByPreju($receitaResultado, $prejuizo);
+
+                    echo "<li><span>Campanha:</span><p>R$" . $campanhaResultado . "</p></li>";
+
+                    $campanhaCalc = true;
+
+                }
+
             } else if ($campanha !== "" && ($lucro !== "" || $prejuizo !== "")) {
 
                 if ($lucro !== "") {
@@ -564,58 +732,62 @@ function calc()
                     echo "<li><span>Receita:</span><p>R$" . $receitaResultado . "</p></li>";
 
                 }
-
-//      }else{
-//
-//        echo "<li><span>Não é possível calcular a Receita com lucro e prejuízo preenchidos.</p>";
-//
-//      }
-
             }
+        }
 
-            if ($campanhaCalc === false) {
+        if ($campanhaCalc === false) {
 
-                if (($lucro !== "" || $prejuizo !== "") && $campanha !== "") {
+            if (($lucro !== "" || $prejuizo !== "") && $campanha === "") {
 
-                    if ($lucro !== "") {
+                if ($lucro !== "") {
 
-                        $campanhaResultado = calcCampanhaByLucro($receitaResultado, $lucro);
+                    $campanhaResultado = calcCampanhaByLucro($receita, $lucro);
 
-                        echo "<li><span>Campanha:</span><p>R$" . $campanhaResultado . "</p></li>";
+                    echo "<li><span>Campanha:</span><p>R$" . $campanhaResultado . "</p></li>";
 
 
-                    } else {
+                } else {
 
-                        $campanhaResultado = calcCampanhaByPreju($receitaResultado, $prejuizo);
+                    $campanhaResultado = calcCampanhaByPreju($receita, $prejuizo);
 
-                        echo "<li><span>Campanha:</span><p>R$" . $campanhaResultado . "</p></li>";
+                    echo "<li><span>Campanha:</span><p>R$" . $campanhaResultado . "</p></li>";
 
-                    }
                 }
 
-            }
+                if($cpl !== "" && $leads === ""){
 
-            if ($lucroPrejuCalc === false) {
+                    $leadsResultado = calcLeadsByCplECampanha($cpl, $campanhaResultado);
 
-                if ($lucro === "" && $prejuizo === "" && $receita !== "" && $campanha !== "") {
+                    echo "<li><span>Leads:</span><p>" . $leadsResultado . "</p></li>";
 
-                    if (calcLucroOuPreju($receita, $campanha) === "lucro") {
+                    $oportunidadesResultado = calcLeadsToOpor($leadsResultado, $pctLeadsToOpor);
+                    $clientesResultado = calcOporToClie($oportunidadesResultado, $pctOporToClie);
 
-                        $lucroResultado = calcLucro($receita, $campanha);
+                    echo "<li><span>Oportunidades:</span><p>" . $oportunidadesResultado . "</p></li>";
+                    echo "<li><span>Clientes:</span><p>" . $clientesResultado . "</p></li>";
 
-                        echo "<li><span>Lucro:</span><p>" . $lucroResultado . "%</p>";
-
-                    } else {
-
-                        $prejuizoResultado = calcPreju($receita, $campanha);
-
-                        echo "<li><span>Prejuízo:</span><p>" . $prejuizoResultado . "%</p>";
-
-                    }
                 }
             }
+        }
 
+        if ($lucroPrejuCalc === false) {
 
+            if ($lucro === "" && $prejuizo === "" && $receita !== "" && $campanha !== "") {
+
+                if (calcLucroOuPreju($receita, $campanha) === "lucro") {
+
+                    $lucroResultado = calcLucro($receita, $campanha);
+
+                    echo "<li><span>Lucro:</span><p>" . $lucroResultado . "%</p>";
+
+                } else {
+
+                    $prejuizoResultado = calcPreju($receita, $campanha);
+
+                    echo "<li><span>Prejuízo:</span><p>" . $prejuizoResultado . "%</p>";
+
+                }
+            }
         }
     }
 }
