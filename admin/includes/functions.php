@@ -14,20 +14,34 @@
       if ($ds_email == "") {
         echo "Você não informou um e-mail";
       } else {
-        $query = "INSERT INTO fun_usuario (nm_usuario, ds_senha, ds_email) VALUES ('$username', '$password', '$ds_email')";
-        $resultado = mysqli_query($connection, $query);
+        $user = mysqli_real_escape_string($connection, $ds_email);
+        $pass = mysqli_real_escape_string($connection, $password);
 
-        if (!$resultado) {
-          die('Não deu certo');
-        } else {
-          session_start();
-          $_SESSION['ds_email'] = $ds_email;
-          $_SESSION['password'] = $password;
-          $_SESSION['username'] = $username;
+        $query = "SELECT * FROM fun_usuario WHERE  ds_email = '$user'";
+        $select_usuario = mysqli_query($connection, $query);
 
-          header('Location: index.php');
+        while ($row = mysqli_fetch_assoc($select_usuario)) {
+          $db_email = $row['ds_email'];
         }
 
+        if ($ds_email !== $db_email) {
+          $query = "INSERT INTO fun_usuario (nm_usuario, ds_senha, ds_email) VALUES ('$username', '$password', '$ds_email')";
+          $resultado = mysqli_query($connection, $query);
+
+          if (!$resultado) {
+            die('Não deu certo');
+          } else {
+            session_start();
+            $_SESSION['ds_email'] = $ds_email;
+            $_SESSION['password'] = $password;
+            $_SESSION['username'] = $username;
+
+            header('Location: index.php');
+          }
+        }
+        else {
+          echo "<script>alert('Usuário já existe!'); window.location.href = 'acesso.php';</script>";
+        }
       }
     }
   }
