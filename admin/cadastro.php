@@ -1,4 +1,8 @@
 <?php
+  include 'includes/verificalogin.php';
+  if(verifica()){
+    header('Location: index.php');
+  };
   include 'includes/functions.php';
   novoUsuario();
 ?>
