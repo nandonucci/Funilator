@@ -1,7 +1,11 @@
 <?php
+  include 'includes/verificalogin.php';
+  if(!verifica()){
+    header('Location: acesso.php');
+  };
   include 'includes/functions.php';
-  session_start();
   atualizaCadastro();
+  deletarConta();
 ?>
 
 <!DOCTYPE html>
@@ -42,8 +46,12 @@
           <input id="login" type="submit" class="btn btn-success" name="atualizar" value="Atualizar">
         </div>
         <div class="input-field">
-          <input id="login" type="submit" class="btn btn-danger" name="cancelar" value="Cancelar">
+          <input id="login" type="submit" class="btn btn-warning" name="cancelar" value="Cancelar">
         </div>
+        <div class="input-field">
+          <input id="login" type="submit" class="btn btn-danger" name="deletar" value="Deletar Conta">
+        </div>
+        <br><br>
       </form>
 
     </div>

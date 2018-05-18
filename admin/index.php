@@ -31,17 +31,6 @@
       <a href="update.php"><i class="fa fa-fw fa-power-off"></i>//Dados usuário</a>
       <a href="includes/logout.php">  <i class="fa fa-fw fa-power-off"></i>//Log Out</a>
 
-      <!-- <form class="" action="includes/verificalogin.php" method="post">
-        <div class="input-field">
-          <input id="login" type="text" class="validate" name="username" required placeholder="E-mail">
-        </div>
-        <div class="input-field">
-          <input id="login" type="password" class="validate" name="password" required placeholder="Senha">
-        </div>
-        <div class="input-field">
-          <input id="login" type="submit" class="btn btn-success" name="login" value="Entrar">
-        </div>
-      </form> -->
       <div class="list">
         <ul>
           <li class="hvr-grow">
