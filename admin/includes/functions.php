@@ -58,21 +58,21 @@
 
       $session = $_SESSION['ds_email'];
 
-      $query = "UPDATE funilator.fun_usuario SET ";
+      $query = "UPDATE fun_usuario SET ";
 
       if ($ds_email !== "") {
         $query .= "ds_email = '$ds_email',";
+        $_SESSION['ds_email'] = $ds_email;
       }
       if ($username !== "") {
         $query .= "nm_usuario = '$username',";
+        $_SESSION['username'] = $username;
       }
       if ($password !== "") {
-        $query .= "ds_senha = '$password',";
+        $query .= "ds_senha = '$password'";
       }
 
-      $query = substr($query, 0, -1);
-
-      $query .= " WHERE ds_email = $session;";
+      $query .= " WHERE ds_email = '$session';";
 
       $resultado = mysqli_query($connection, $query);
 
@@ -80,7 +80,6 @@
         die('Não deu certo a atualização');
       } else {
         header('Location: ../admin/index.php');
-        echo "Catergoria atualização com sucesso!";
       }
 
     } elseif (isset($_POST['cancelar'])) {
