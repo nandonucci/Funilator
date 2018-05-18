@@ -1,51 +1,6 @@
 <?php
   include 'db.php';
 
-  // Função de login do usuário
-  function logar()
-  {
-    global $connection;
-    if (isset($_POST['login'])) {
-      $username = $_POST['email'];
-      $password = $_POST['password'];
-
-      $username = mysqli_real_escape_string($connection, $username);
-      $password = mysqli_real_escape_string($connection, $password);
-
-      $query = "SELECT * FROM fun_usuario WHERE  ds_email = '$username'";
-      $select_usuario = mysqli_query($connection, $query);
-
-      while ($row = mysqli_fetch_assoc($select_usuario)) {
-        $db_id = $row['id'];
-        $db_email = $row['ds_email'];
-        $db_password = $row['ds_senha'];
-        $db_user = $row['nm_usuario'];
-      }
-
-      echo $username . "=" . $db_email . "?<br>";
-
-      echo $password . "=" . $db_password . "?";
-      if ($username !== $db_email && $password !== $db_password) {
-
-        header('Location: acesso.php');
-
-      } elseif ($username == $db_email && $password == $db_password) {
-
-        // $_SESSION['id'] = $db_id;
-        $_SESSION['ds_email'] = $db_email;
-        $_SESSION['password'] = $db_password;
-        $_SESSION['username'] = $db_user;
-
-        header('Location: index.php');
-
-      } else {
-
-        header('Location: acesso.php');
-
-      }
-    }
-  }
-
   // Função de cadastro de usuário
   function novoUsuario()
   {
@@ -91,6 +46,48 @@
     }
   }
 
+  // Função de login do usuário
+  function logar()
+  {
+    global $connection;
+    if (isset($_POST['login'])) {
+      $username = $_POST['email'];
+      $password = $_POST['password'];
+
+      $username = mysqli_real_escape_string($connection, $username);
+      $password = mysqli_real_escape_string($connection, $password);
+
+      $query = "SELECT * FROM fun_usuario WHERE ds_email = '$username'";
+      $select_usuario = mysqli_query($connection, $query);
+
+      while ($row = mysqli_fetch_assoc($select_usuario)) {
+        $db_id = $row['id'];
+        $db_email = $row['ds_email'];
+        $db_password = $row['ds_senha'];
+        $db_user = $row['nm_usuario'];
+      }
+
+      if ($username !== $db_email && $password !== $db_password) {
+
+        header('Location: acesso.php');
+
+      } elseif ($username == $db_email && $password == $db_password) {
+
+        $_SESSION['ds_email'] = $db_email;
+        $_SESSION['password'] = $db_password;
+        $_SESSION['username'] = $db_user;
+
+        header('Location: index.php');
+
+      } else {
+
+        header('Location: acesso.php');
+
+      }
+
+    }
+  }
+
   //Função de atualizar cadastro
   function atualizaCadastro()
   {
@@ -106,12 +103,22 @@
       $query = "UPDATE fun_usuario SET ";
 
       if ($ds_email !== "") {
-        $query .= "ds_email = '$ds_email',";
+        $query .= "ds_email = '$ds_email'";
         $_SESSION['ds_email'] = $ds_email;
+
+        if($username !== "" || $password !== ""){
+          $query .= ", ";
+        }
+
       }
       if ($username !== "") {
-        $query .= "nm_usuario = '$username',";
+        $query .= "nm_usuario = '$username'";
         $_SESSION['username'] = $username;
+
+        if($password !== ""){
+          $query .= ", ";
+        }
+
       }
       if ($password !== "") {
         $query .= "ds_senha = '$password'";
@@ -131,6 +138,31 @@
       header('Location: ../admin/index.php');
     }
   }
+
+  //Função de deletar conta
+  function deletarConta()
+  {
+    global $connection;
+    if (isset($_POST['deletar'])) {
+      $ds_email = $_SESSION['ds_email'];
+
+      $query = "SELECT * FROM fun_usuario WHERE  ds_email = '$ds_email'";
+      $resultado = mysqli_query($connection, $query);
+
+      if(mysqli_num_rows($resultado) > 0){
+        $query = "DELETE FROM fun_usuario WHERE ds_email = '$ds_email'";
+        $resultado = mysqli_query($connection, $query);
+
+        if(!$resultado){
+          die("Não deletou!");
+        }
+        session_destroy();
+        header('Location: ../admin/acesso.php');
+      }
+    }
+  }
+
+
 
 // //Exibir calculos
 // function mostraCalculos(){
