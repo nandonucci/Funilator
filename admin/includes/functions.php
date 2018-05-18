@@ -108,8 +108,8 @@
         $erro = false;
 
         if ($ds_email !== "") {
-          $query = "SELECT * FROM fun_usuario WHERE  ds_email = '$ds_email'";
-          $resultado = mysqli_query($connection, $query);
+          $validacao = "SELECT * FROM fun_usuario WHERE ds_email = '$ds_email'";
+          $resultado = mysqli_query($connection, $validacao);
 
           while ($row = mysqli_fetch_assoc($resultado)) {
             $db_email = $row['ds_email'];
@@ -127,9 +127,10 @@
             echo "<script>alert('Email já existe!');</script>";
           }
         }
+
         if ($username !== "") {
-          $query = "SELECT * FROM fun_usuario WHERE nm_usuario = '$username'";
-          $resultado = mysqli_query($connection, $query);
+          $validacao = "SELECT * FROM fun_usuario WHERE nm_usuario = '$username'";
+          $resultado = mysqli_query($connection, $validacao);
 
           while ($row = mysqli_fetch_assoc($resultado)) {
             $db_usuario = $row['nm_usuario'];
