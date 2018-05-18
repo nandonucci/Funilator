@@ -10,37 +10,39 @@
       $ds_email = $_POST['email'];
       $username = $_POST['username'];
       $password = $_POST['password'];
+      $passwordconfirm = $_POST['passwordconfirm'];
 
       if ($ds_email == "") {
         echo "Você não informou um e-mail";
       } else {
         $user = mysqli_real_escape_string($connection, $ds_email);
-        $pass = mysqli_real_escape_string($connection, $password);
 
-        $query = "SELECT * FROM fun_usuario WHERE  ds_email = '$user'";
+        $query = "SELECT * FROM fun_usuario WHERE ds_email = '$user'";
         $select_usuario = mysqli_query($connection, $query);
 
         while ($row = mysqli_fetch_assoc($select_usuario)) {
           $db_email = $row['ds_email'];
         }
+        if (isset($db_email) && $ds_email == $db_email) {
+          echo "<script>alert('Email já está cadastrado!'); window.location.href='acesso.php';</script>";
+        } else {
+          if($password == $passwordconfirm){
+            $query = "INSERT INTO fun_usuario (nm_usuario, ds_senha, ds_email) VALUES ('$username', '$password', '$ds_email')";
+            $resultado = mysqli_query($connection, $query);
 
-        if ($ds_email !== $db_email) {
-          $query = "INSERT INTO fun_usuario (nm_usuario, ds_senha, ds_email) VALUES ('$username', '$password', '$ds_email')";
-          $resultado = mysqli_query($connection, $query);
+            if (!$resultado) {
+              die('Não deu certo');
+            } else {
+              session_start();
+              $_SESSION['ds_email'] = $ds_email;
+              $_SESSION['password'] = $password;
+              $_SESSION['username'] = $username;
 
-          if (!$resultado) {
-            die('Não deu certo');
-          } else {
-            session_start();
-            $_SESSION['ds_email'] = $ds_email;
-            $_SESSION['password'] = $password;
-            $_SESSION['username'] = $username;
-
-            header('Location: index.php');
+              header('Location: index.php');
+            }
+          }else {
+            echo "<script>alert('Senhas não conferem!');</script>";
           }
-        }
-        else {
-          echo "<script>alert('Usuário já existe!'); window.location.href = 'acesso.php';</script>";
         }
       }
     }
@@ -100,42 +102,81 @@
 
       $session = $_SESSION['ds_email'];
 
-      $query = "UPDATE fun_usuario SET ";
+      if($ds_email !== "" || $username !== "" || $password !== ""){
 
-      if ($ds_email !== "") {
-        $query .= "ds_email = '$ds_email'";
-        $_SESSION['ds_email'] = $ds_email;
+        $query = "UPDATE fun_usuario SET ";
+        $erro = false;
 
-        if($username !== "" || $password !== ""){
-          $query .= ", ";
+        if ($ds_email !== "") {
+          $query = "SELECT * FROM fun_usuario WHERE  ds_email = '$ds_email'";
+          $resultado = mysqli_query($connection, $query);
+
+          while ($row = mysqli_fetch_assoc($resultado)) {
+            $db_email = $row['ds_email'];
+          }
+
+          if ($ds_email !== $db_email) {
+            $query .= "ds_email = '$ds_email'";
+            $_SESSION['ds_email'] = $ds_email;
+
+            if($username !== "" || $password !== ""){
+              $query .= ", ";
+            }
+          } else {
+            $erro = true;
+            echo "<script>alert('Email já existe!');</script>";
+          }
+        }
+        if ($username !== "") {
+          $query = "SELECT * FROM fun_usuario WHERE nm_usuario = '$username'";
+          $resultado = mysqli_query($connection, $query);
+
+          while ($row = mysqli_fetch_assoc($resultado)) {
+            $db_usuario = $row['nm_usuario'];
+          }
+
+          if ($username !== $db_usuario) {
+            $query .= "nm_usuario = '$username'";
+            $_SESSION['username'] = $username;
+
+            if($password !== ""){
+              $query .= ", ";
+            }
+          } else {
+            $erro = true;
+            echo "<script>alert('Usuário já existe!');</script>";
+          }
+
+        }
+        if ($password !== "") {
+          if($password == $_POST['passwordconfirm']){
+            $query .= "ds_senha = '$password'";
+            $_SESSION['password'] = $password;
+          } else {
+            $erro = true;
+            echo "<script>alert('Senhas não conferem!');</script>";
+          }
         }
 
-      }
-      if ($username !== "") {
-        $query .= "nm_usuario = '$username'";
-        $_SESSION['username'] = $username;
+        if(!$erro){
 
-        if($password !== ""){
-          $query .= ", ";
+          $query .= " WHERE ds_email = '$session';";
+
+          $resultado = mysqli_query($connection, $query);
+
+          if (!$resultado) {
+            die('Não deu certo a atualização');
+          } else {
+            header('Location: index.php');
+          }
+
         }
-
-      }
-      if ($password !== "") {
-        $query .= "ds_senha = '$password'";
-      }
-
-      $query .= " WHERE ds_email = '$session';";
-
-      $resultado = mysqli_query($connection, $query);
-
-      if (!$resultado) {
-        die('Não deu certo a atualização');
       } else {
-        header('Location: ../admin/index.php');
+        echo "Os campos estão vazios!";
       }
 
     } elseif (isset($_POST['cancelar'])) {
-      header('Location: ../admin/index.php');
+      header('Location: index.php');
     }
   }
 
