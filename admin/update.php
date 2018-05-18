@@ -1,6 +1,9 @@
 <?php
+  include 'includes/verificalogin.php';
+  if(!verifica()){
+    header('Location: acesso.php');
+  };
   include 'includes/functions.php';
-  session_start();
   atualizaCadastro();
 ?>
 
