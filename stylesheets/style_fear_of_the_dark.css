@@ -69,6 +69,19 @@ HEADER
 
 /*
 -------------------------------------------------------------------------------
+ADMINISTRATIVO
+-------------------------------------------------------------------------------
+*/
+.admin{
+  width: 50%;
+  margin: 0 auto;
+  padding: 15px;
+  text-align: center;
+  margin-top: 15px;
+  word-spacing: 20px;
+}
+/*
+-------------------------------------------------------------------------------
 #CARD
 -------------------------------------------------------------------------------
 */
@@ -243,6 +256,7 @@ input[type=number]::-webkit-outer-spin-button {
   font-size: 1.1rem;
     display: block;
     margin-bottom: 20px;
+margin-top: -30px;
     font-weight: bold;
     text-transform: uppercase;
 }
@@ -259,7 +273,9 @@ input[type=number]::-webkit-outer-spin-button {
     padding-left: 10px;
     padding-right: 10px;
     box-sizing: border-box;
+    clear: both;
 }
+
 
 .content-result ul li  span{
     font-weight: bold;
@@ -273,4 +289,36 @@ input[type=number]::-webkit-outer-spin-button {
     font-size: .9rem;
     float:right;
     display: inline-block;
+}
+.cadastro{
+  height: 280px;
+  z-index: 100;
+  background-color: #000;
+  padding: 20px;
+  display:block;
+margin-bottom: 50px;
+}
+
+.cadastro button{float: right;}
+
+.group-name{
+  width: 300px;
+  display: block;
+  margin-top: 50px;
+}
+.group-name button{float: right;}
+.your-results ul li{
+  height: 50px;
+line-height: 38px;
+}
+.your-results ul li .btn-none{
+background: transparent;
+border: none;
+}
+.your-results ul li .group-preview{margin-top: 30px;}
+.your-results ul li .group-preview li{
+  border:none;
+  padding:0;
+  height: auto;
+  line-height: 10px;
 }

@@ -13,6 +13,7 @@
         gtag('js', new Date());
         gtag('config', 'UA-118085354-1');
     </script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular.min.js"></script>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -44,10 +45,14 @@
     <link href="stylesheets/animate.min.css" rel="stylesheet">
     <link href="stylesheets/materialize.css" rel="stylesheet">
     <link href="stylesheets/bootstrap.min.css" rel="stylesheet">
+    <link href="javascript/jquery-ui-1.12.1/jquery-ui.min.css" rel="stylesheet">
+    <link href="javascript/jquery-ui-1.12.1/jquery-ui.theme.min.css" rel="stylesheet">
+    <link href="javascript/jquery-ui-1.12.1/jquery-ui.structure.min.css" rel="stylesheet">
+    <link href="stylesheets/animate.min.css"  rel="stylesheet">
     <link href="stylesheets/style_fear_of_the_dark.css" id="switch_style" rel="stylesheet">
 </head>
 
-<body onload="easterEgg('https://i.imgflip.com/27tjfs.jpg');">
+<body onload="easterEgg('https://i.imgflip.com/27tjfs.jpg');" ng-app="app">
 <!--==========================================
 TOPO
 ===========================================-->
@@ -73,14 +78,32 @@ TOPO
                                         cálculos dolorosos e
                                         demorados do seu funil de vendas, é grátis, divirta-se.</p>
                                 </div>
-
-                                <div class="row">
+                                <div class="admin">
+                                    <button ng-click="openModalCadastro = !openModalCadastro ">Cadastrar</button>
+                                    <button ng-click="openModalLogin = !openModalLogin">Logar</button>
+                                </div>
+                                <div class="cadastro animated flipInX" ng-if="openModalCadastro"ng-controller="SignInController">
+                                  <form class="cadastro" ng-submit="cadastro()">
+                                    <input type="text" name="nome" placeholder="Seu nome" ng-model="novoUsuario.nome">
+                                    <input type="text" name="email" placeholder="Seu e-mail" ng-model="novoUsuario.email">
+                                    <input type="password" name="senha" placeholder="Sua senha" ng-model="novoUsuario.senha">
+                                    <button type="submit" name="enviar" value="enviar">Enviar</button>
+                                  </form>
+                                </div>
+                                <div class="cadastro animated flipInX" ng-if="openModalLogin" ng-controller="LoginController">
+                                  <form class="cadastro" ng-submit="sendLogin()">
+                                    <input type="text" name="email" placeholder="Seu e-mail" ng-model="login.email">
+                                    <input type="password" name="senha" placeholder="Sua senha" ng-model="login.senha">
+                                    <button type="submit" name="enviar" value="enviar">Entrar</button>
+                                  </form>
+                                </div>
+                                <div class="row" ng-controller="MainController">
                                     <div id="contact-card" class="col-sm-12 col-xs-12">
                                         <!-- FORM INPUT DADOS -->
                                         <div class="card">
                                             <div class="card-content">
                                                 <!---->
-                                                <form method="post" action="index.php" id="contact-form" name="c-form" class="form-block">
+                                                <form id="contact-form" name="c-form" class="form-block" ng-submit="sendFunilator()">
                                                     <h4 class="title-result">//calcular</h4>
                                                     <h5>informe abaixo <span><a href="pages/easteregg.html"
                                                                                 style="color: #000000">?</a></span></h5>
@@ -96,97 +119,94 @@ TOPO
                                                     <!--Visitantes to Leads-->
                                                     <div class="input-field input-field-red">
                                                         <input id="visiToLeads" type="number" class="validate"
-                                                               name="visiToLeads">
+                                                               name="visiToLeads" ng-model="funilator.visitantesToLead">
                                                         <label for="visiToLeads">Visitantes p/ Leads</label>
                                                     </div>
                                                     <!--Leads to Oportunidades-->
                                                     <div class="input-field input-field-blue">
                                                         <input id="leadsToOpor" type="number" class="validate"
-                                                               name="leadsToOpor">
+                                                               name="leadsToOp or"ng-model="funilator.leadsToOportunidades">
                                                         <label for="leadsToOpor">Leads p/ Oport.</label>
                                                     </div>
                                                     <!--Oportunidade to Clientes-->
                                                     <div class="input-field input-field-green">
                                                         <input id="oporToClie" type="number" class="validate"
-                                                               name="oporToClie">
+                                                               name="oporToCli e"ng-model="funilator.oportunidadesToCleintes">
                                                         <label for="oporToClie">Oport. p/ Clientes</label>
                                                     </div>
                                                     <!--Taxa de Conversao-->
                                                     <div class="input-field input-field-yellow">
                                                         <input id="taxaConversao" type="number" class="validate"
-                                                               name="taxaConversao">
+                                                               name="taxaConve rsao"ng-model="funilator.taxaToConversao">
                                                         <label for="taxaConversao">Taxa de Conversão</label>
                                                     </div>
 
                                                     <!--CLIENTES-->
                                                     <br><div class="input-field">
                                                         <input id="clientes" type="number" class="validate valor-input"
-                                                               name="clientes">
+                                                               name="clientes" ng-model="funilator.clientes">
                                                         <label for="clientes">Clientes</label>
                                                     </div>
                                                     <!--OPORTUNIDADE-->
                                                     <div class="input-field">
                                                         <input id="oportunidades" type="number"
                                                                class="validate valor-input"
-                                                               name="oportunidades">
+                                                               name="oportunid ades"ng-model="funilator.oportunidade">
                                                         <label for="oportunidades">Oportunidades</label>
                                                     </div>
                                                     <!--LEADS-->
                                                     <div class="input-field">
                                                         <input id="leads" type="number" class="validate valor-input"
-                                                               name="leads">
-                                                        <label for="leads">Leads</label>
+                                                               name="leads" ng-model="funilator.leads">
+                                                         <label for="leads">Leads</label>
                                                     </div>
                                                     <!--VISITANTES-->
                                                     <div class="input-field">
                                                         <input id="visitantes" type="number"
                                                                class="validate valor-input"
-                                                               name="visitantes">
+                                                               name="visitantes" ng-model="funilator.visitantes">
                                                         <label for="visitantes">Visitantes</label>
                                                     </div>
                                                     <!-- TICKET MÉDIO -->
                                                     <div class="input-field">
                                                         <input id="ticketmedio" type="number"
                                                                class="validate valor-input"
-                                                               name="ticketmedio">
+                                                               name="ticketmed io"ng-model="funilator.ticketmedio">
                                                         <label for="ticketmedio">Ticket Médio</label>
                                                     </div><!--CAC-->
                                                     <div class="input-field">
                                                         <input id="cac" type="number" class="validate valor-input"
-                                                               name="cac"
-                                                        >
+                                                               name="cac" ng-model="funilator.cac">
                                                         <label for="cac">CAC</label>
                                                     </div>
                                                     <!--CPL-->
                                                     <div class="input-field">
                                                         <input id="cpl" type="number" class="validate valor-input"
-                                                               name="cpl"
-                                                        >
+                                                               name="cpl" ng-model="funilator.cpl">
                                                         <label for="cpl">CPL</label>
                                                     </div>
                                                     <!--RECEITA-->
                                                     <div class="input-field">
                                                         <input id="receita" type="number" class="validate valor-input"
-                                                               name="receita">
+                                                               name="receita" ng-model="funilator.receita">
                                                         <label for="receita">Receita</label>
                                                     </div>
                                                     <!--CAMPANHA-->
                                                     <div class="input-field">
                                                         <input id="campanha" type="number" class="validate valor-input"
-                                                               name="campanha">
+                                                               name="campanha" ng-model="funilator.campanha">
                                                         <label for="campanha">Despesa/Campanha</label>
                                                     </div>
                                                     <!--LUCRO-->
                                                     <div class="input-field">
                                                         <input id="lucro" type="number" class="validate valor-input"
-                                                               name="lucro"
-                                                        >
+                                                               name="lucro" ng-model="funilator.lucro">
                                                         <label for="lucro">Lucro %</label>
                                                     </div>
                                                     <!--PREJUIZO-->
                                                     <div class="input-field">
                                                         <input id="prejuizo" type="number" class="validate valor-input"
-                                                               name="prejuizo">
+                                                               name="prejuizo" ng-model="funilator.prejuizo">
                                                         <label for="prejuizo">Prejuizo %</label>
                                                     </div>
 
@@ -197,6 +217,7 @@ TOPO
                                                     <input type="submit" name="calcular" value="calcular">
 
                                                 </form>
+
                                             </div>
                                         </div>
                                     </div>
@@ -206,31 +227,53 @@ TOPO
 
 
                         <section class="content-result">
-                            <ul>
-                            <?php
-                            include "calcs_php/chamada_calcs.php";
-                            calc();
+                          <span class="title-result">// Resultados:</span>
+                          <ul>
+                            <li><span>Porcentagem Visitantes para Leads utilizada:</span><p>20%</p></li>
+                            <li><span>Porcentagem Leads para Oportunidades utilizada:</span><p>10%</p></li>
+                            <li><span>Porcentagem Oportunidades para Clientes utilizada:</span><p>25%</p>
+                            </li><li><span>Visitantes:</span><p>222</p></li><li><span>Leads:</span><p>45</p>
+                            </li><li><span>Oportunidades:</span><p>5</p></li><li><span>Clientes:</span><p>2</p>
+                            </li><li><span>Receita:</span><p>R$0</p></li>
+                          </ul>
+                          <div class="group-name">
+                            <form ng-submit="sendNameGroup()">
+                              <p>Salvar Resultados:</p>
+                              <input type="text" placeholder="nome">
+                              <button class="btn" type="submit">Gravar</button>
+                            </form>
+                          </div>
+                        </section>
 
-                            ?>
+                        <section class="content-result your-results">
+                          <span class="title-result">// Seus Resultados:</span>
+                          <ul>
+                            <li>
+                            <span class="group-date">27/11/1996</span>
+                            <button class="btn-none" ng-click="groupPreview = !groupPreview">Nome do Grupo</button>
+                            <p>
+                            <button class="btn">Exportar</button>
+                            <button class="btn-none">X</button>
+                            </p>
+                            <ul class="group-preview animated flipInX" ng-if="groupPreview">
+                              <li><span>Porcentagem Visitantes para Leads utilizada:</span><p>20%</p></li>
+                              <li><span>Porcentagem Leads para Oportunidades utilizada:</span><p>10%</p></li>
+                              <li><span>Porcentagem Oportunidades para Clientes utilizada:</span><p>25%</p>
+                              </li><li><span>Visitantes:</span><p>222</p></li><li><span>Leads:</span><p>45</p>
+                              </li><li><span>Oportunidades:</span><p>5</p></li><li><span>Clientes:</span><p>2</p>
+                              </li><li><span>Receita:</span><p>R$0</p></li>
                             </ul>
+                            </li>
+                          </ul>
                         </section>
 
 
 
 
                         <!--FOOTER-->
-                        <footer>
+                        <!-- <footer>
                             <div class="container">
                                 <p class="text-center">
-                                    <!--                  <a href="https://github.com/brunorales" target="_blank">-->
-                                    <!--                    <strong>@BrunoMorales</strong>-->
-                                    <!--                  </a>-->
-                                    <!--                  <a href="http://fenmeyer.com.br" target="_blank">-->
-                                    <!--                    <strong>@FernandoMeyer</strong>-->
-                                    <!--                  </a>-->
-                                    <!--                  <a href="http://silviozum.github.io" target="_blank">-->
-                                    <!--                    <strong>@Silvinh0</strong>-->
-                                    <!--                  </a>-->
                                     Todos os Direitos Reservados
                                     <br>
                                     <a href="#home">
@@ -238,7 +281,7 @@ TOPO
                                     </a>
                                 </p>
                             </div>
-                        </footer>
+                        </footer> -->
                     </div>
                 </div>
             </div>
@@ -252,9 +295,11 @@ TOPO
 <script src="javascript/materialize.min.js"></script>
 <script src="javascript/retina.min.js"></script>
 <script src="javascript/scrollreveal.min.js"></script>
+<script src="javascript/jquery-ui-1.12.1/jquery-ui.min.js"></script>
 <!--<script src="javascript/preloader.js"></script>-->
 <!--<script src="javascript/calcs.js"></script>-->
 <script src="javascript/version-control.js"></script>
+<script src="javascript/app.js"></script>
 
 </body>
 </html>
